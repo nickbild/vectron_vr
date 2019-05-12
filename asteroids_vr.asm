@@ -94,14 +94,14 @@ StartExe	ORG $8000
     jsr WriteCommandLcd
     ; writeData16(x1, cs);
     ldx #$00
-    jsr writeDataLcd
+    jsr WriteDataLcd
     ldx #$32
-    jsr writeDataLcd
+    jsr WriteDataLcd
     ; writeData16(x2, cs);
     ldx #$00
-    jsr writeDataLcd
+    jsr WriteDataLcd
     ldx #$3B
-    jsr writeDataLcd
+    jsr WriteDataLcd
 
     ; Row address set.
     ;writeCommand(0x2B, cs);
@@ -109,14 +109,14 @@ StartExe	ORG $8000
     jsr WriteCommandLcd
     ;writeData16(y1, cs);
     ldx #$00
-    jsr writeDataLcd
+    jsr WriteDataLcd
     ldx #$64
-    jsr writeDataLcd
+    jsr WriteDataLcd
     ;writeData16(y2, cs);
     ldx #$00
-    jsr writeDataLcd
+    jsr WriteDataLcd
     ldx #$65
-    jsr writeDataLcd
+    jsr WriteDataLcd
 
     ; RAM write.
     ;writeCommand(0x2C, cs);
@@ -124,47 +124,47 @@ StartExe	ORG $8000
     jsr WriteCommandLcd
 
     ldx #$FF
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    jsr writeDataLcd
-    
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+    jsr WriteDataLcd
+
     ;;; END test.
 
 		cli
