@@ -79,93 +79,7 @@ StartExe	ORG $8000
 
     jsr InitTftLcd
 
-    ;;; Quick test to make sure screens are working.
-
-    ; Enable both screens.
-    lda #$00
-    sta TftCs1
-    sta $0001
-    sta TftCs2
-    sta $0001
-
-    ; Column address set.
-    ; writeCommand(0x2A, cs);
-    ldx #$2A
-    jsr WriteCommandLcd
-    ; writeData16(x1, cs);
-    ldx #$00
-    jsr WriteDataLcd
-    ldx #$32
-    jsr WriteDataLcd
-    ; writeData16(x2, cs);
-    ldx #$00
-    jsr WriteDataLcd
-    ldx #$3B
-    jsr WriteDataLcd
-
-    ; Row address set.
-    ;writeCommand(0x2B, cs);
-    ldx #$2B
-    jsr WriteCommandLcd
-    ;writeData16(y1, cs);
-    ldx #$00
-    jsr WriteDataLcd
-    ldx #$64
-    jsr WriteDataLcd
-    ;writeData16(y2, cs);
-    ldx #$00
-    jsr WriteDataLcd
-    ldx #$65
-    jsr WriteDataLcd
-
-    ; RAM write.
-    ;writeCommand(0x2C, cs);
-    ldx #$2C
-    jsr WriteCommandLcd
-
-    ldx #$E0
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-    jsr WriteDataLcd
-
-    ;;; END test.
+		jsr DrawBackground
 
 		cli
 
@@ -206,7 +120,7 @@ LcdCePulse	sta $01
 		rts
 
 ;;;
-; LCD initialization sequence.
+; Character LCD initialization sequence.
 ;;;
 
 InitLcd		jsr Delay
@@ -857,7 +771,7 @@ WriteCommandLcd
 
 WriteDataLcd
     ; Command to SR.
-    ; x register must contain command.
+    ; x register must contain data.
     stx SpiSrLd
     sta $0001
 
@@ -882,6 +796,207 @@ WriteDataLcd
     sta $0001
 
     rts
+
+DrawBackground
+		; Enable both screens.
+		lda #$00
+		sta TftCs1
+		sta $0001
+		sta TftCs2
+		sta $0001
+
+		;;;
+		; Cockpit - Bottom.
+		;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$EF
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$32
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		; 48*255=12240
+		lda #$30
+LoopBgData1	ldy #$FE
+LoopBgData2	dey
+
+				ldx #$94
+				jsr WriteDataLcd
+				ldx #$B3
+				jsr WriteDataLcd
+
+				bne LoopBgData2
+				.byte #$3A ; DEA
+				bne LoopBgData1
+
+		;;;;
+		; Cockpit - Right side.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$0A
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$33
+		jsr WriteDataLcd
+		ldx #$01
+		jsr WriteDataLcd
+		ldx #$35
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		; 12*238=2856 (2849 needed).
+		lda #$30
+LoopBgData3	ldy #$FE
+LoopBgData4	dey
+
+				ldx #$94
+				jsr WriteDataLcd
+				ldx #$B3
+				jsr WriteDataLcd
+
+				bne LoopBgData4
+				.byte #$3A ; DEA
+				bne LoopBgData3
+
+		;;;;
+		; Cockpit - Left side.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$E5
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$EF
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$33
+		jsr WriteDataLcd
+		ldx #$01
+		jsr WriteDataLcd
+		ldx #$35
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		; 12*238=2856 (2849 needed).
+		lda #$30
+LoopBgData5	ldy #$FE
+LoopBgData6	dey
+
+				ldx #$94
+				jsr WriteDataLcd
+				ldx #$B3
+				jsr WriteDataLcd
+
+				bne LoopBgData6
+				.byte #$3A ; DEA
+				bne LoopBgData5
+
+		;;;;
+		; Cockpit - Top.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$EF
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$01
+		jsr WriteDataLcd
+		ldx #$36
+		jsr WriteDataLcd
+		ldx #$01
+		jsr WriteDataLcd
+		ldx #$3F
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		; 10*240=2400
+		lda #$0A
+LoopBgData7	ldy #$F0
+LoopBgData8	dey
+
+				ldx #$94
+				jsr WriteDataLcd
+				ldx #$B3
+				jsr WriteDataLcd
+
+				bne LoopBgData8
+				.byte #$3A ; DEA
+				bne LoopBgData7
+
+		; Enable both screens.
+		lda #$01
+		sta TftCs1
+		sta $0001
+		sta TftCs2
+		sta $0001
+
+		rts
 
 ; PS/2 Code Set 2 Scan Code Lookup Table
 ; Subtract $14 from scan code to determine
