@@ -3,4 +3,5 @@ archive/
 *.list
 hex.txt
 command
+hex.py
 

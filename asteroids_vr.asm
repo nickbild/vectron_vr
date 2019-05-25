@@ -123,7 +123,7 @@ StartExe	ORG $8000
     ldx #$2C
     jsr WriteCommandLcd
 
-    ldx #$FF
+    ldx #$E0
     jsr WriteDataLcd
     jsr WriteDataLcd
     jsr WriteDataLcd
