@@ -837,16 +837,16 @@ DrawBackground
 		ldx #$2C
 		jsr WriteCommandLcd
 
-		; 48*255=12240
-		lda #$30
-LoopBgData1	ldy #$FE
-LoopBgData2	dey
-
+		; 48*255=12240 (0s are skipped, so add 1 to loop counters)
+		lda #$31
+LoopBgData1	ldy #$FF
+LoopBgData2
 				ldx #$94
 				jsr WriteDataLcd
 				ldx #$B3
 				jsr WriteDataLcd
 
+				dey
 				bne LoopBgData2
 				.byte #$3A ; DEA
 				bne LoopBgData1
@@ -884,15 +884,15 @@ LoopBgData2	dey
 		jsr WriteCommandLcd
 
 		; 12*238=2856 (2849 needed).
-		lda #$30
-LoopBgData3	ldy #$FE
-LoopBgData4	dey
-
+		lda #$0D
+LoopBgData3	ldy #$EF
+LoopBgData4
 				ldx #$94
 				jsr WriteDataLcd
 				ldx #$B3
 				jsr WriteDataLcd
 
+				dey
 				bne LoopBgData4
 				.byte #$3A ; DEA
 				bne LoopBgData3
@@ -930,15 +930,15 @@ LoopBgData4	dey
 		jsr WriteCommandLcd
 
 		; 12*238=2856 (2849 needed).
-		lda #$30
-LoopBgData5	ldy #$FE
-LoopBgData6	dey
-
+		lda #$0D
+LoopBgData5	ldy #$EF
+LoopBgData6
 				ldx #$94
 				jsr WriteDataLcd
 				ldx #$B3
 				jsr WriteDataLcd
 
+				dey
 				bne LoopBgData6
 				.byte #$3A ; DEA
 				bne LoopBgData5
@@ -976,25 +976,347 @@ LoopBgData6	dey
 		jsr WriteCommandLcd
 
 		; 10*240=2400
-		lda #$0A
-LoopBgData7	ldy #$F0
-LoopBgData8	dey
-
+		lda #$0B
+LoopBgData7	ldy #$F1
+LoopBgData8
 				ldx #$94
 				jsr WriteDataLcd
 				ldx #$B3
 				jsr WriteDataLcd
 
+				dey
 				bne LoopBgData8
 				.byte #$3A ; DEA
 				bne LoopBgData7
 
-		; Enable both screens.
-		lda #$01
-		sta TftCs1
-		sta $0001
-		sta TftCs2
-		sta $0001
+		;;;;
+		; Space 1.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$0B
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$E4
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$33
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$65
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		; 225×10=2250 (2244 needed).
+		ldx #$00 ; color data
+		lda #$0B
+LoopSpaceData1	ldy #$E2
+LoopSpaceData2
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+
+				dey
+				bne LoopSpaceData2
+				.byte #$3A ; DEA
+				bne LoopSpaceData1
+
+		;;;;
+		; Space 2.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$0B
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$E4
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$66
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$98
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		; 225×10=2250 (2244 needed).
+		ldx #$00 ; color data
+		lda #$0B
+LoopSpaceData3	ldy #$E2
+LoopSpaceData4
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+
+				dey
+				bne LoopSpaceData4
+				.byte #$3A ; DEA
+				bne LoopSpaceData3
+
+		;;;;
+		; Space 3.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$0B
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$E4
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$99
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$CB
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		; 225×10=2250 (2244 needed).
+		ldx #$00 ; color data
+		lda #$0B
+LoopSpaceData5	ldy #$E2
+LoopSpaceData6
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+
+				dey
+				bne LoopSpaceData6
+				.byte #$3A ; DEA
+				bne LoopSpaceData5
+
+		;;;;
+		; Space 4.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$0B
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$E4
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$CC
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$FE
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		; 225×10=2250 (2244 needed).
+		ldx #$00 ; color data
+		lda #$0B
+LoopSpaceData7	ldy #$E2
+LoopSpaceData8
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+
+				dey
+				bne LoopSpaceData8
+				.byte #$3A ; DEA
+				bne LoopSpaceData7
+
+		;;;;
+		; Space 5.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$0B
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$E4
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$CC
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$FE
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		; 225×10=2250 (2244 needed).
+		ldx #$00 ; color data
+		lda #$0B
+LoopSpaceData9	ldy #$E2
+LoopSpaceData10
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+
+				dey
+				bne LoopSpaceData10
+				.byte #$3A ; DEA
+				bne LoopSpaceData9
+
+		;;;;
+		; Space 6.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$0B
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$E4
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$FF
+		jsr WriteDataLcd
+		ldx #$01
+		jsr WriteDataLcd
+		ldx #$35
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		; 240×10=2400 (2398 needed).
+		ldx #$00 ; color data
+		lda #$0B
+LoopSpaceData11	ldy #$F1
+LoopSpaceData12
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+
+				dey
+				bne LoopSpaceData12
+				.byte #$3A ; DEA
+				bne LoopSpaceData11
+
+				; Disable both screens.
+				lda #$01
+				sta TftCs1
+				sta $0001
+				sta TftCs2
+				sta $0001
+
+		;;;;
+		; Stars.
+		;;;;
 
 		rts
 
