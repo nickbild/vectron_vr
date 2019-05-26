@@ -79,7 +79,27 @@ StartExe	ORG $8000
 
     jsr InitTftLcd
 
+		; Enable both screens.
+		lda #$00
+		sta TftCs1
+		sta $0001
+		sta TftCs2
+		sta $0001
+
+		; Draw common background.
 		jsr DrawBackground
+		; Draw separate (3D) BG for each screen.
+		lda #$01
+		sta TftCs2
+		sta $0001
+		jsr DrawBackgroundLeft
+		lda #$01
+		sta TftCs1
+		sta $0001
+		lda #$00
+		sta TftCs2
+		sta $0001
+		jsr DrawBackgroundRight
 
 		cli
 
@@ -797,14 +817,8 @@ WriteDataLcd
 
     rts
 
+; Draw a common background for both screens.
 DrawBackground
-		; Enable both screens.
-		lda #$00
-		sta TftCs1
-		sta $0001
-		sta TftCs2
-		sta $0001
-
 		;;;
 		; Cockpit - Bottom.
 		;;;
@@ -841,9 +855,9 @@ DrawBackground
 		lda #$31
 LoopBgData1	ldy #$FF
 LoopBgData2
-				ldx #$94
+				ldx #$63
 				jsr WriteDataLcd
-				ldx #$B3
+				ldx #$2C
 				jsr WriteDataLcd
 
 				dey
@@ -887,9 +901,9 @@ LoopBgData2
 		lda #$0D
 LoopBgData3	ldy #$EF
 LoopBgData4
-				ldx #$94
+				ldx #$63
 				jsr WriteDataLcd
-				ldx #$B3
+				ldx #$2C
 				jsr WriteDataLcd
 
 				dey
@@ -933,9 +947,9 @@ LoopBgData4
 		lda #$0D
 LoopBgData5	ldy #$EF
 LoopBgData6
-				ldx #$94
+				ldx #$63
 				jsr WriteDataLcd
-				ldx #$B3
+				ldx #$2C
 				jsr WriteDataLcd
 
 				dey
@@ -979,9 +993,9 @@ LoopBgData6
 		lda #$0B
 LoopBgData7	ldy #$F1
 LoopBgData8
-				ldx #$94
+				ldx #$63
 				jsr WriteDataLcd
-				ldx #$B3
+				ldx #$2C
 				jsr WriteDataLcd
 
 				dey
@@ -1307,16 +1321,579 @@ LoopSpaceData12
 				.byte #$3A ; DEA
 				bne LoopSpaceData11
 
-				; Disable both screens.
-				lda #$01
-				sta TftCs1
-				sta $0001
-				sta TftCs2
-				sta $0001
+		rts
+
+DrawBackgroundLeft
+		;;;;
+		; Button 1.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$50
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$5A
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$0A
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$14
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		ldy #$7A
+LoopButtonData1l
+				ldx #$E8
+				jsr WriteDataLcd
+				ldx #$E3
+				jsr WriteDataLcd
+				dey
+				bne LoopButtonData1l
 
 		;;;;
-		; Stars.
+		; Button 2.
 		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$50
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$5A
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$19
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$23
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		ldy #$7A
+LoopButtonData2l
+				ldx #$02
+				jsr WriteDataLcd
+				ldx #$EC
+				jsr WriteDataLcd
+				dey
+				bne LoopButtonData2l
+
+		;;;;
+		; Button 3.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$50
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$5A
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$28
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$32
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		ldy #$7A
+LoopButtonData3l
+				ldx #$22
+				jsr WriteDataLcd
+				ldx #$9C
+				jsr WriteDataLcd
+				dey
+				bne LoopButtonData3l
+
+		;;;;
+		; Button 4.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$95
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$9F
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$28
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$32
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		ldy #$7A
+LoopButtonData4l
+				ldx #$0C
+				jsr WriteDataLcd
+				ldx #$E2
+				jsr WriteDataLcd
+				dey
+				bne LoopButtonData4l
+
+		;;;;
+		; Yoke center.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$63
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$8B
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$17
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$1B
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		ldy #$CE
+		ldx #$00
+LoopYokeData1l
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				dey
+				bne LoopYokeData1l
+
+		;;;;
+		; Yoke left.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$87
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$8D
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$19
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$1F
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		ldy #$5C
+		ldx #$00
+LoopYokeData2l
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				dey
+				bne LoopYokeData2l
+
+		;;;;
+		; Yoke right.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$61
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$67
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$19
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$1F
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		ldy #$5C
+		ldx #$00
+LoopYokeData3l
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				dey
+				bne LoopYokeData3l
+
+		rts
+
+DrawBackgroundRight
+		;;;;
+		; Button 1.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$50
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$5A
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$0A
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$14
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		ldy #$7A
+LoopButtonData1r
+				ldx #$E8
+				jsr WriteDataLcd
+				ldx #$E3
+				jsr WriteDataLcd
+				dey
+				bne LoopButtonData1r
+
+		;;;;
+		; Button 2.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$53
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$5D
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$19
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$23
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		ldy #$7A
+LoopButtonData2r
+				ldx #$02
+				jsr WriteDataLcd
+				ldx #$EC
+				jsr WriteDataLcd
+				dey
+				bne LoopButtonData2r
+
+		;;;;
+		; Button 3.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$50
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$5A
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$28
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$32
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		ldy #$7A
+LoopButtonData3r
+				ldx #$22
+				jsr WriteDataLcd
+				ldx #$9C
+				jsr WriteDataLcd
+				dey
+				bne LoopButtonData3r
+
+		;;;;
+		; Button 4.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$95
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$9F
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$28
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$32
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		ldy #$7A
+LoopButtonData4r
+				ldx #$0C
+				jsr WriteDataLcd
+				ldx #$E2
+				jsr WriteDataLcd
+				dey
+				bne LoopButtonData4r
+
+		;;;;
+		; Yoke center.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$66
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$8E
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$17
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$1B
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		ldy #$CE
+		ldx #$00
+LoopYokeData1r
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				dey
+				bne LoopYokeData1r
+
+		;;;;
+		; Yoke left.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$8A
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$90
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$19
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$1F
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		ldy #$5C
+		ldx #$00
+LoopYokeData2r
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				dey
+				bne LoopYokeData2r
+
+		;;;;
+		; Yoke right.
+		;;;;
+
+		; Column address set.
+		ldx #$2A
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$64
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$6A
+		jsr WriteDataLcd
+
+		; Row address set.
+		ldx #$2B
+		jsr WriteCommandLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$19
+		jsr WriteDataLcd
+		ldx #$00
+		jsr WriteDataLcd
+		ldx #$1F
+		jsr WriteDataLcd
+
+		; RAM write.
+		ldx #$2C
+		jsr WriteCommandLcd
+
+		ldy #$5C
+		ldx #$00
+LoopYokeData3r
+				jsr WriteDataLcd
+				jsr WriteDataLcd
+				dey
+				bne LoopYokeData3r
 
 		rts
 
