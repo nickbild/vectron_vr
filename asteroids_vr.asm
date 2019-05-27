@@ -125,6 +125,53 @@ StartExe	ORG $8000
 		sta $0001
 		jsr DrawBackgroundRight
 
+		; Initialize an asteroid.
+		lda #$FF
+		sta $0C
+
+		lda #$64
+		sta $0D
+		sta $0E
+		lda #$63
+		sta $0F
+		lda #$64
+		sta $10
+		lda #$65
+		sta $11
+		lda #$66
+		sta $12
+		lda #$67
+		sta $13
+		lda #$68
+		sta $14
+		lda #$69
+		sta $15
+		lda #$6A
+		sta $16
+		lda #$6B
+		sta $17
+		lda #$6A
+		sta $18
+		lda #$69
+		sta $19
+		lda #$68
+		sta $1A
+		lda #$67
+		sta $1B
+		lda #$66
+		sta $1C
+		lda #$65
+		sta $1D
+		lda #$64
+		sta $1E
+		lda #$63
+		sta $1F
+		lda #$62
+		sta $20
+
+		lda #$00
+		sta TftCs1
+
 		jsr DrawAsteroid
 
 		cli
@@ -816,8 +863,6 @@ WriteCommandLcd
     rts
 
 WriteDataLcd
-    ; Command to SR.
-    ; x register must contain data.
     sta SpiSrLd
     sta $0001
 
@@ -856,11 +901,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $0E
+		sbc #$0A
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $0E
-		adc #$0A
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -880,26 +925,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$15
+AsteroidLoop1
+		sta SpiSrLd
+    sta $0001
+
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+    sta TftClkBoth
+    sta $0001
+    sta TftClkBoth
+    sta $0001
+    sta TftClkBoth
+    sta $0001
+    sta TftClkBoth
+    sta $0001
+    sta TftClkBoth
+    sta $0001
+    sta TftClkBoth
+    sta $0001
+
+		dex
+		bne AsteroidLoop1
 
 		;;;;
 		; Row 2
@@ -911,11 +963,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $0F
+		sbc #$0C
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $0F
-		adc #$0C
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -937,30 +989,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$19
+AsteroidLoop2
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop2
 
 		;;;;
 		; Row 3
@@ -972,11 +1027,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $10
+		sbc #$0E
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $10
-		adc #$0E
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -998,34 +1053,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$1D
+AsteroidLoop3
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop3
 
 		;;;;
 		; Row 4
@@ -1037,11 +1091,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $11
+		sbc #$10
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $11
-		adc #$10
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -1063,38 +1117,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$21
+AsteroidLoop4
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop4
 
 		;;;;
 		; Row 5
@@ -1106,11 +1155,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $12
+		sbc #$12
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $12
-		adc #$12
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -1132,42 +1181,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$25
+AsteroidLoop5
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop5
 
 		;;;;
 		; Row 6
@@ -1179,11 +1219,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $13
+		sbc #$14
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $13
-		adc #$14
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -1205,46 +1245,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$29
+AsteroidLoop6
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop6
 
 		;;;;
 		; Row 7
@@ -1256,11 +1283,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $14
+		sbc #$16
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $14
-		adc #$16
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -1282,50 +1309,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$2D
+AsteroidLoop7
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop7
 
 		;;;;
 		; Row 8
@@ -1337,11 +1347,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $15
+		sbc #$18
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $15
-		adc #$18
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -1363,54 +1373,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$31
+AsteroidLoop8
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop8
 
 		;;;;
 		; Row 9
@@ -1422,11 +1411,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $16
+		sbc #$1A
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $16
-		adc #$1A
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -1448,58 +1437,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$35
+AsteroidLoop9
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop9
 
 		;;;;
 		; Row 10
@@ -1511,11 +1475,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $17
+		sbc #$1C
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $17
-		adc #$1C
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -1537,62 +1501,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$39
+AsteroidLoop10
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop10
 
 		;;;;
 		; Row 11
@@ -1604,11 +1539,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $18
+		sbc #$1A
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $18
-		adc #$1A
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -1630,58 +1565,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$35
+AsteroidLoop11
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop11
 
 		;;;;
 		; Row 12
@@ -1693,11 +1603,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $19
+		sbc #$18
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $19
-		adc #$18
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -1719,54 +1629,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$31
+AsteroidLoop12
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop12
 
 		;;;;
 		; Row 13
@@ -1778,11 +1667,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $1A
+		sbc #$16
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $1A
-		adc #$16
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -1804,50 +1693,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$2D
+AsteroidLoop13
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop13
 
 		;;;;
 		; Row 14
@@ -1859,11 +1731,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $1B
+		sbc #$14
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $1B
-		adc #$14
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -1885,46 +1757,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$29
+AsteroidLoop14
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop14
 
 		;;;;
 		; Row 15
@@ -1936,11 +1795,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $1C
+		sbc #$12
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $1C
-		adc #$12
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -1962,42 +1821,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$25
+AsteroidLoop15
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop15
 
 		;;;;
 		; Row 16
@@ -2009,11 +1859,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $1D
+		sbc #$10
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $1D
-		adc #$10
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -2035,38 +1885,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$21
+AsteroidLoop16
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop16
 
 		;;;;
 		; Row 17
@@ -2078,11 +1923,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $1E
+		sbc #$0E
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $1E
-		adc #$0E
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -2104,34 +1949,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$1D
+AsteroidLoop17
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop17
 
 		;;;;
 		; Row 18
@@ -2143,11 +1987,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $1F
+		sbc #$0C
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $1F
-		adc #$0C
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -2169,30 +2013,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$19
+AsteroidLoop18
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop18
 
 		;;;;
 		; Row 19
@@ -2204,11 +2051,11 @@ DrawAsteroid
 		lda #$00
 		jsr WriteDataLcd
 		lda $20
+		sbc #$0A
 		jsr WriteDataLcd
 		lda #$00
 		jsr WriteDataLcd
 		lda $20
-		adc #$0A
 		jsr WriteDataLcd
 
 		; Row address set.
@@ -2230,26 +2077,33 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
-		jsr WriteDataLcd
+		ldx #$15
+AsteroidLoop19
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop19
 
 		rts
 
