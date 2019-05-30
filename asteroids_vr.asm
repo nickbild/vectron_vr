@@ -21,26 +21,26 @@
 ;
 ; $000B - Asteroid 1 active flag
 ; $000C - Asteroid 1 color
-; $000D - Asteroid 1 topmost y coordinate
-; $000E - Asteroid 1 topmost x coordinate
-; $000F - Asteroid 1 topmost-1 x coordinate
-; $0010 - Asteroid 1 topmost-2 x coordinate
-; $0011 - Asteroid 1 topmost-3 x coordinate
-; $0012 - Asteroid 1 topmost-4 x coordinate
-; $0013 - Asteroid 1 topmost-5 x coordinate
-; $0014 - Asteroid 1 topmost-6 x coordinate
-; $0015 - Asteroid 1 topmost-7 x coordinate
-; $0016 - Asteroid 1 topmost-8 x coordinate
-; $0017 - Asteroid 1 topmost-9 x coordinate
-; $0018 - Asteroid 1 topmost-10 x coordinate
-; $0019 - Asteroid 1 topmost-11 x coordinate
-; $001A - Asteroid 1 topmost-12 x coordinate
-; $001B - Asteroid 1 topmost-13 x coordinate
-; $001C - Asteroid 1 topmost-14 x coordinate
-; $001D - Asteroid 1 topmost-15 x coordinate
-; $001E - Asteroid 1 topmost-16 x coordinate
-; $001F - Asteroid 1 topmost-17 x coordinate
-; $0020 - Asteroid 1 topmost-18 x coordinate
+; $000D - Asteroid 1 bottommost y coordinate
+; $000E - Asteroid 1 leftmost x coordinate, y
+; $000F - Asteroid 1 leftmost x coordinate, y+1
+; $0010 - Asteroid 1 leftmost x coordinate, y+2
+; $0011 - Asteroid 1 leftmost x coordinate, y+3
+; $0012 - Asteroid 1 leftmost x coordinate, y+4
+; $0013 - Asteroid 1 leftmost x coordinate, y+5
+; $0014 - Asteroid 1 leftmost x coordinate, y+6
+; $0015 - Asteroid 1 leftmost x coordinate, y+7
+; $0016 - Asteroid 1 leftmost x coordinate, y+8
+; $0017 - Asteroid 1 leftmost x coordinate, y+9
+; $0018 - Asteroid 1 leftmost x coordinate, y+10
+; $0019 - Asteroid 1 leftmost x coordinate, y+11
+; $001A - Asteroid 1 leftmost x coordinate, y+12
+; $001B - Asteroid 1 leftmost x coordinate, y+13
+; $001C - Asteroid 1 leftmost x coordinate, y+14
+; $001D - Asteroid 1 leftmost x coordinate, y+15
+; $001E - Asteroid 1 leftmost x coordinate, y+16
+; $001F - Asteroid 1 leftmost x coordinate, y+17
+; $0020 - Asteroid 1 leftmost x coordinate, y+18
 ;
 ; $0100-$01FF - 6502 stack
 ; $7FBE-$7FBF - Temporary location for LCD data manipulation.
