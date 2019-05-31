@@ -389,7 +389,7 @@ DoNotSkipScanCode
 		; $0020 - Asteroid 1 leftmost x coordinate, y+18
 		; 41=A; 53=S; 51=Q; 5A=Z
 
-		cmp #$41
+		cmp #$41 ; A
 		bne NotLeft
 		ldx #$00
 		stx $0C
@@ -421,7 +421,7 @@ DoNotSkipScanCode
 		jmp EndKbInput
 
 NotLeft
-		cmp #$53
+		cmp #$53 ; S
 		bne NotRight
 		ldx #$00
 		stx $0C
@@ -453,7 +453,7 @@ NotLeft
 		jmp EndKbInput
 
 NotRight
-		cmp #$51
+		cmp #$51 ; Q
 		bne NotUp
 		ldx #$00
 		stx $0C
@@ -467,7 +467,7 @@ NotRight
 		jmp EndKbInput
 
 NotUp
-		cmp #$5A
+		cmp #$5A ; Z
 		bne NotDown
 		ldx #$00
 		stx $0C
