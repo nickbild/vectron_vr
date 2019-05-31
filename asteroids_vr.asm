@@ -1049,7 +1049,7 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$15
+		ldx #$17
 AsteroidLoop1
 		sta SpiSrLd
     sta $0001
@@ -1113,7 +1113,7 @@ AsteroidLoop1
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$19
+		ldx #$1B
 AsteroidLoop2
 		sta SpiSrLd
 		sta $0001
@@ -1177,7 +1177,7 @@ AsteroidLoop2
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$1D
+		ldx #$1F
 AsteroidLoop3
 		sta SpiSrLd
 		sta $0001
@@ -1241,7 +1241,7 @@ AsteroidLoop3
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$21
+		ldx #$23
 AsteroidLoop4
 		sta SpiSrLd
 		sta $0001
@@ -1305,7 +1305,7 @@ AsteroidLoop4
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$25
+		ldx #$27
 AsteroidLoop5
 		sta SpiSrLd
 		sta $0001
@@ -1369,7 +1369,7 @@ AsteroidLoop5
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$29
+		ldx #$2B
 AsteroidLoop6
 		sta SpiSrLd
 		sta $0001
@@ -1433,7 +1433,7 @@ AsteroidLoop6
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$2D
+		ldx #$2F
 AsteroidLoop7
 		sta SpiSrLd
 		sta $0001
@@ -1497,7 +1497,7 @@ AsteroidLoop7
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$31
+		ldx #$33
 AsteroidLoop8
 		sta SpiSrLd
 		sta $0001
@@ -1561,7 +1561,7 @@ AsteroidLoop8
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$35
+		ldx #$37
 AsteroidLoop9
 		sta SpiSrLd
 		sta $0001
@@ -1625,7 +1625,7 @@ AsteroidLoop9
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$39
+		ldx #$3B
 AsteroidLoop10
 		sta SpiSrLd
 		sta $0001
@@ -1689,7 +1689,7 @@ AsteroidLoop10
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$35
+		ldx #$37
 AsteroidLoop11
 		sta SpiSrLd
 		sta $0001
@@ -1753,7 +1753,7 @@ AsteroidLoop11
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$31
+		ldx #$33
 AsteroidLoop12
 		sta SpiSrLd
 		sta $0001
@@ -1817,7 +1817,7 @@ AsteroidLoop12
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$2D
+		ldx #$2F
 AsteroidLoop13
 		sta SpiSrLd
 		sta $0001
@@ -1881,7 +1881,7 @@ AsteroidLoop13
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$29
+		ldx #$2B
 AsteroidLoop14
 		sta SpiSrLd
 		sta $0001
@@ -1945,7 +1945,7 @@ AsteroidLoop14
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$25
+		ldx #$27
 AsteroidLoop15
 		sta SpiSrLd
 		sta $0001
@@ -2009,7 +2009,7 @@ AsteroidLoop15
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$21
+		ldx #$23
 AsteroidLoop16
 		sta SpiSrLd
 		sta $0001
@@ -2073,7 +2073,7 @@ AsteroidLoop16
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$1D
+		ldx #$1F
 AsteroidLoop17
 		sta SpiSrLd
 		sta $0001
@@ -2137,7 +2137,7 @@ AsteroidLoop17
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$19
+		ldx #$1B
 AsteroidLoop18
 		sta SpiSrLd
 		sta $0001
@@ -2201,7 +2201,7 @@ AsteroidLoop18
 		jsr WriteCommandLcd
 
 		lda $0C
-		ldx #$15
+		ldx #$17
 AsteroidLoop19
 		sta SpiSrLd
 		sta $0001
