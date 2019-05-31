@@ -336,11 +336,14 @@ KBInitLoop	jsr ResetKeyboardCounter
 KbIsr
 		pha
 		.byte #$DA ; phx - mnemonic unknown to DASM.
+		.byte #$5A ; phy
 
 		; Is this scan code flagged to be skipped?
 		ldx SkipNextScanCodeFlag
 		cpx #$01
-		beq SkipScanCodeAndResetSkip
+		bne ContinueKbIsr
+		jmp SkipScanCodeAndResetSkip
+ContinueKbIsr
 
 		; Display shift register contents on output pins,
 		; and enable line buffer.
@@ -362,39 +365,158 @@ DoNotSkipScanCode
 		tax
 		lda ScanCodeLookup,x
 
-		; Store data in memory location read by LCD.
-		sta $7FBE
-		sta $7FBF
+		; $000B - Asteroid 1 active flag
+		; $000C - Asteroid 1 color
+		; $000D - Asteroid 1 bottommost y coordinate
+		; $000E - Asteroid 1 leftmost x coordinate, y
+		; $000F - Asteroid 1 leftmost x coordinate, y+1
+		; $0010 - Asteroid 1 leftmost x coordinate, y+2
+		; $0011 - Asteroid 1 leftmost x coordinate, y+3
+		; $0012 - Asteroid 1 leftmost x coordinate, y+4
+		; $0013 - Asteroid 1 leftmost x coordinate, y+5
+		; $0014 - Asteroid 1 leftmost x coordinate, y+6
+		; $0015 - Asteroid 1 leftmost x coordinate, y+7
+		; $0016 - Asteroid 1 leftmost x coordinate, y+8
+		; $0017 - Asteroid 1 leftmost x coordinate, y+9
+		; $0018 - Asteroid 1 leftmost x coordinate, y+10
+		; $0019 - Asteroid 1 leftmost x coordinate, y+11
+		; $001A - Asteroid 1 leftmost x coordinate, y+12
+		; $001B - Asteroid 1 leftmost x coordinate, y+13
+		; $001C - Asteroid 1 leftmost x coordinate, y+14
+		; $001D - Asteroid 1 leftmost x coordinate, y+15
+		; $001E - Asteroid 1 leftmost x coordinate, y+16
+		; $001F - Asteroid 1 leftmost x coordinate, y+17
+		; $0020 - Asteroid 1 leftmost x coordinate, y+18
+		; 41=A; 53=S; 51=Q; 5A=Z
 
-		; Make sure RS (bit 3) is set to 1.
-		lda #$0F
-		ora $7FBE
-
-		; If CursorPosition >= 64, reset it to 0.
-		ldx CursorPosition
-		cpx #$40
-		bcc CursorPositionLessThan32
+		cmp #$41
+		bne NotLeft
 		ldx #$00
-		stx CursorPosition
-CursorPositionLessThan32
+		stx $0C
+		jsr DrawAsteroid
 
-		ldx CursorPosition
-		sta $7FC0,x
-		inc CursorPosition
+		ldx #$FF
+		stx $0C
 
-		; Move least sig. nibble to most sig. position, then make sure RS is 1.
-		rol $7FBF
-		rol $7FBF
-		rol $7FBF
-		rol $7FBF
-		lda #$0F
-		ora $7FBF
+		inc $0E
+		inc $0F
+		inc $10
+		inc $11
+		inc $12
+		inc $13
+		inc $14
+		inc $15
+		inc $16
+		inc $17
+		inc $18
+		inc $19
+		inc $1A
+		inc $1B
+		inc $1C
+		inc $1D
+		inc $1E
+		inc $1F
+		inc $20
+		jsr DrawAsteroid
+		jmp EndKbInput
 
-		ldx CursorPosition
-		sta $7FC0,x
-		inc CursorPosition
+NotLeft
+		cmp #$53
+		bne NotRight
+		ldx #$00
+		stx $0C
+		jsr DrawAsteroid
 
-		jsr WriteLCD
+		ldx #$FF
+		stx $0C
+
+		dec $0E
+		dec $0F
+		dec $10
+		dec $11
+		dec $12
+		dec $13
+		dec $14
+		dec $15
+		dec $16
+		dec $17
+		dec $18
+		dec $19
+		dec $1A
+		dec $1B
+		dec $1C
+		dec $1D
+		dec $1E
+		dec $1F
+		dec $20
+		jsr DrawAsteroid
+		jmp EndKbInput
+
+NotRight
+		cmp #$51
+		bne NotUp
+		ldx #$00
+		stx $0C
+		jsr DrawAsteroid
+
+		ldx #$FF
+		stx $0C
+
+		inc $0D
+		jsr DrawAsteroid
+		jmp EndKbInput
+
+NotUp
+		cmp #$5A
+		bne NotDown
+		ldx #$00
+		stx $0C
+		jsr DrawAsteroid
+
+		ldx #$FF
+		stx $0C
+
+		dec $0D
+		jsr DrawAsteroid
+		jmp EndKbInput
+
+NotDown
+EndKbInput
+
+; Remove writing to character LCD for now.
+; 		; Store data in memory location read by LCD.
+; 		sta $7FBE
+; 		sta $7FBF
+;
+; 		; Make sure RS (bit 3) is set to 1.
+; 		lda #$0F
+; 		ora $7FBE
+;
+; 		; If CursorPosition >= 64, reset it to 0.
+; 		ldx CursorPosition
+; 		cpx #$40
+; 		bcc CursorPositionLessThan32
+; 		ldx #$00
+; 		stx CursorPosition
+; CursorPositionLessThan32
+;
+; 		ldx CursorPosition
+; 		sta $7FC0,x
+; 		inc CursorPosition
+;
+; 		; Move least sig. nibble to most sig. position, then make sure RS is 1.
+; 		rol $7FBF
+; 		rol $7FBF
+; 		rol $7FBF
+; 		rol $7FBF
+; 		lda #$0F
+; 		ora $7FBF
+;
+; 		ldx CursorPosition
+; 		sta $7FC0,x
+; 		inc CursorPosition
+;
+; 		jsr WriteLCD
 
 SkipScanCodeAndResetSkip
 		; Do not skip the next scan code.
@@ -406,6 +528,7 @@ SkipScanCode
 		lda $FFF9
 		lda $0001
 
+		.byte #$7A ; ply
 		.byte #$FA ; plx
 		pla
 
