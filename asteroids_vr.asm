@@ -997,18 +997,6 @@ WriteDataLcd
     ; Clock LCD and SR together 7 more times.
     sta TftClkBoth
     sta $0001
-    sta TftClkBoth
-    sta $0001
-    sta TftClkBoth
-    sta $0001
-    sta TftClkBoth
-    sta $0001
-    sta TftClkBoth
-    sta $0001
-    sta TftClkBoth
-    sta $0001
-    sta TftClkBoth
-    sta $0001
 
     rts
 
@@ -1059,18 +1047,6 @@ AsteroidLoop1
     sta $0001
 
     ; Clock LCD and SR together 7 more times.
-    sta TftClkBoth
-    sta $0001
-    sta TftClkBoth
-    sta $0001
-    sta TftClkBoth
-    sta $0001
-    sta TftClkBoth
-    sta $0001
-    sta TftClkBoth
-    sta $0001
-    sta TftClkBoth
-    sta $0001
     sta TftClkBoth
     sta $0001
 
@@ -1125,18 +1101,6 @@ AsteroidLoop2
 		; Clock LCD and SR together 7 more times.
 		sta TftClkBoth
 		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 
 		dex
 		bne AsteroidLoop2
@@ -1187,18 +1151,6 @@ AsteroidLoop3
 		sta $0001
 
 		; Clock LCD and SR together 7 more times.
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 		sta TftClkBoth
 		sta $0001
 
@@ -1253,18 +1205,6 @@ AsteroidLoop4
 		; Clock LCD and SR together 7 more times.
 		sta TftClkBoth
 		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 
 		dex
 		bne AsteroidLoop4
@@ -1315,18 +1255,6 @@ AsteroidLoop5
 		sta $0001
 
 		; Clock LCD and SR together 7 more times.
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 		sta TftClkBoth
 		sta $0001
 
@@ -1381,18 +1309,6 @@ AsteroidLoop6
 		; Clock LCD and SR together 7 more times.
 		sta TftClkBoth
 		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 
 		dex
 		bne AsteroidLoop6
@@ -1443,18 +1359,6 @@ AsteroidLoop7
 		sta $0001
 
 		; Clock LCD and SR together 7 more times.
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 		sta TftClkBoth
 		sta $0001
 
@@ -1509,18 +1413,6 @@ AsteroidLoop8
 		; Clock LCD and SR together 7 more times.
 		sta TftClkBoth
 		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 
 		dex
 		bne AsteroidLoop8
@@ -1571,18 +1463,6 @@ AsteroidLoop9
 		sta $0001
 
 		; Clock LCD and SR together 7 more times.
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 		sta TftClkBoth
 		sta $0001
 
@@ -1637,18 +1517,6 @@ AsteroidLoop10
 		; Clock LCD and SR together 7 more times.
 		sta TftClkBoth
 		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 
 		dex
 		bne AsteroidLoop10
@@ -1699,18 +1567,6 @@ AsteroidLoop11
 		sta $0001
 
 		; Clock LCD and SR together 7 more times.
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 		sta TftClkBoth
 		sta $0001
 
@@ -1765,18 +1621,6 @@ AsteroidLoop12
 		; Clock LCD and SR together 7 more times.
 		sta TftClkBoth
 		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 
 		dex
 		bne AsteroidLoop12
@@ -1827,18 +1671,6 @@ AsteroidLoop13
 		sta $0001
 
 		; Clock LCD and SR together 7 more times.
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 		sta TftClkBoth
 		sta $0001
 
@@ -1893,18 +1725,6 @@ AsteroidLoop14
 		; Clock LCD and SR together 7 more times.
 		sta TftClkBoth
 		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 
 		dex
 		bne AsteroidLoop14
@@ -1955,18 +1775,6 @@ AsteroidLoop15
 		sta $0001
 
 		; Clock LCD and SR together 7 more times.
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 		sta TftClkBoth
 		sta $0001
 
@@ -2021,18 +1829,6 @@ AsteroidLoop16
 		; Clock LCD and SR together 7 more times.
 		sta TftClkBoth
 		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 
 		dex
 		bne AsteroidLoop16
@@ -2083,18 +1879,6 @@ AsteroidLoop17
 		sta $0001
 
 		; Clock LCD and SR together 7 more times.
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 		sta TftClkBoth
 		sta $0001
 
@@ -2149,18 +1933,6 @@ AsteroidLoop18
 		; Clock LCD and SR together 7 more times.
 		sta TftClkBoth
 		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 
 		dex
 		bne AsteroidLoop18
@@ -2211,18 +1983,6 @@ AsteroidLoop19
 		sta $0001
 
 		; Clock LCD and SR together 7 more times.
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
-		sta TftClkBoth
-		sta $0001
 		sta TftClkBoth
 		sta $0001
 
