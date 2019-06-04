@@ -13,7 +13,6 @@
 ; $0003 - Flag to indicate if next scan code should be skipped.
 ; $0004 - TFT LCD DC
 ; $0005 - TFT LCD Clock AND SPI shift register clock
-;				  1 pulse sent here will send 7 pulses on the clock link at 7MHz.
 ; $0006 - TFT LCD Clock only
 ; $0007 - TFT LCD #1 (left eye) CS
 ; $0008 - TFT LCD #2 (right eye) CS
@@ -23,7 +22,25 @@
 ; $000B - Asteroid 1 active flag
 ; $000C - Asteroid 1 color
 ; $000D - Asteroid 1 bottommost y coordinate
-; $000E - Asteroid 1 leftmost x coordinate
+; $000E - Asteroid 1 leftmost x coordinate, y
+; $000F - Asteroid 1 leftmost x coordinate, y+1
+; $0010 - Asteroid 1 leftmost x coordinate, y+2
+; $0011 - Asteroid 1 leftmost x coordinate, y+3
+; $0012 - Asteroid 1 leftmost x coordinate, y+4
+; $0013 - Asteroid 1 leftmost x coordinate, y+5
+; $0014 - Asteroid 1 leftmost x coordinate, y+6
+; $0015 - Asteroid 1 leftmost x coordinate, y+7
+; $0016 - Asteroid 1 leftmost x coordinate, y+8
+; $0017 - Asteroid 1 leftmost x coordinate, y+9
+; $0018 - Asteroid 1 leftmost x coordinate, y+10
+; $0019 - Asteroid 1 leftmost x coordinate, y+11
+; $001A - Asteroid 1 leftmost x coordinate, y+12
+; $001B - Asteroid 1 leftmost x coordinate, y+13
+; $001C - Asteroid 1 leftmost x coordinate, y+14
+; $001D - Asteroid 1 leftmost x coordinate, y+15
+; $001E - Asteroid 1 leftmost x coordinate, y+16
+; $001F - Asteroid 1 leftmost x coordinate, y+17
+; $0020 - Asteroid 1 leftmost x coordinate, y+18
 ;
 ; $0100-$01FF - 6502 stack
 ; $7FBE-$7FBF - Temporary location for LCD data manipulation.
@@ -114,9 +131,44 @@ StartExe	ORG $8000
 
 		lda #$64
 		sta $0D
-
 		lda #$62
 		sta $0E
+		lda #$63
+		sta $0F
+		lda #$64
+		sta $10
+		lda #$65
+		sta $11
+		lda #$66
+		sta $12
+		lda #$67
+		sta $13
+		lda #$68
+		sta $14
+		lda #$69
+		sta $15
+		lda #$6A
+		sta $16
+		lda #$6B
+		sta $17
+		lda #$6A
+		sta $18
+		lda #$69
+		sta $19
+		lda #$68
+		sta $1A
+		lda #$67
+		sta $1B
+		lda #$66
+		sta $1C
+		lda #$65
+		sta $1D
+		lda #$64
+		sta $1E
+		lda #$63
+		sta $1F
+		lda #$62
+		sta $20
 
 		lda #$00
 		sta TftCs1
@@ -313,32 +365,90 @@ DoNotSkipScanCode
 		tax
 		lda ScanCodeLookup,x
 
+		; $000B - Asteroid 1 active flag
+		; $000C - Asteroid 1 color
+		; $000D - Asteroid 1 bottommost y coordinate
+		; $000E - Asteroid 1 leftmost x coordinate, y
+		; $000F - Asteroid 1 leftmost x coordinate, y+1
+		; $0010 - Asteroid 1 leftmost x coordinate, y+2
+		; $0011 - Asteroid 1 leftmost x coordinate, y+3
+		; $0012 - Asteroid 1 leftmost x coordinate, y+4
+		; $0013 - Asteroid 1 leftmost x coordinate, y+5
+		; $0014 - Asteroid 1 leftmost x coordinate, y+6
+		; $0015 - Asteroid 1 leftmost x coordinate, y+7
+		; $0016 - Asteroid 1 leftmost x coordinate, y+8
+		; $0017 - Asteroid 1 leftmost x coordinate, y+9
+		; $0018 - Asteroid 1 leftmost x coordinate, y+10
+		; $0019 - Asteroid 1 leftmost x coordinate, y+11
+		; $001A - Asteroid 1 leftmost x coordinate, y+12
+		; $001B - Asteroid 1 leftmost x coordinate, y+13
+		; $001C - Asteroid 1 leftmost x coordinate, y+14
+		; $001D - Asteroid 1 leftmost x coordinate, y+15
+		; $001E - Asteroid 1 leftmost x coordinate, y+16
+		; $001F - Asteroid 1 leftmost x coordinate, y+17
+		; $0020 - Asteroid 1 leftmost x coordinate, y+18
+		; 41=A; 53=S; 51=Q; 5A=Z
+
 		cmp #$41 ; A
 		bne NotLeft
-		ldx #$00
-		stx $0C
-		jsr DrawAsteroid
-
-		ldx #$FF
-		stx $0C
+		; ldx #$00
+		; stx $0C
+		; jsr DrawAsteroid
+		;
+		; ldx #$FF
+		; stx $0C
 
 		inc $0E
-
+		inc $0F
+		inc $10
+		inc $11
+		inc $12
+		inc $13
+		inc $14
+		inc $15
+		inc $16
+		inc $17
+		inc $18
+		inc $19
+		inc $1A
+		inc $1B
+		inc $1C
+		inc $1D
+		inc $1E
+		inc $1F
+		inc $20
 		jsr DrawAsteroid
 		jmp EndKbInput
 
 NotLeft
 		cmp #$53 ; S
 		bne NotRight
-		ldx #$00
-		stx $0C
-		jsr DrawAsteroid
-
-		ldx #$FF
-		stx $0C
+		; ldx #$00
+		; stx $0C
+		; jsr DrawAsteroid
+		;
+		; ldx #$FF
+		; stx $0C
 
 		dec $0E
-
+		dec $0F
+		dec $10
+		dec $11
+		dec $12
+		dec $13
+		dec $14
+		dec $15
+		dec $16
+		dec $17
+		dec $18
+		dec $19
+		dec $1A
+		dec $1B
+		dec $1C
+		dec $1D
+		dec $1E
+		dec $1F
+		dec $20
 		jsr DrawAsteroid
 		jmp EndKbInput
 
@@ -372,6 +482,41 @@ NotUp
 
 NotDown
 EndKbInput
+
+; Remove writing to character LCD for now.
+; 		; Store data in memory location read by LCD.
+; 		sta $7FBE
+; 		sta $7FBF
+;
+; 		; Make sure RS (bit 3) is set to 1.
+; 		lda #$0F
+; 		ora $7FBE
+;
+; 		; If CursorPosition >= 64, reset it to 0.
+; 		ldx CursorPosition
+; 		cpx #$40
+; 		bcc CursorPositionLessThan32
+; 		ldx #$00
+; 		stx CursorPosition
+; CursorPositionLessThan32
+;
+; 		ldx CursorPosition
+; 		sta $7FC0,x
+; 		inc CursorPosition
+;
+; 		; Move least sig. nibble to most sig. position, then make sure RS is 1.
+; 		rol $7FBF
+; 		rol $7FBF
+; 		rol $7FBF
+; 		rol $7FBF
+; 		lda #$0F
+; 		ora $7FBF
+;
+; 		ldx CursorPosition
+; 		sta $7FC0,x
+; 		inc CursorPosition
+;
+; 		jsr WriteLCD
 
 SkipScanCodeAndResetSkip
 		; Do not skip the next scan code.
@@ -858,118 +1003,66 @@ WriteDataLcd
 ; Speed above all, this is frequently redrawn.
 ; Come on 6502, you can do it!
 DrawAsteroid
+		;;;;
+		; Row 1
+		;;;;
+
 		; Column address set.
 		lda #$2A
 		jsr WriteCommandLcd
 		lda #$00
-
-		sta SpiSrLd
-    sta $0001
-    ; Clock LCD only.
-    sta TftClockLCD
-    sta $0001
-    ; Clock LCD and SR together 7 more times.
-    sta TftClkBoth
-    sta $0001
-
+		jsr WriteDataLcd
 		lda $0E
-		sbc #$13
-
-		sta SpiSrLd
-    sta $0001
-    ; Clock LCD only.
-    sta TftClockLCD
-    sta $0001
-    ; Clock LCD and SR together 7 more times.
-    sta TftClkBoth
-    sta $0001
-
+		sbc #$0C
+		jsr WriteDataLcd
 		lda #$00
-
-		sta SpiSrLd
-    sta $0001
-    ; Clock LCD only.
-    sta TftClockLCD
-    sta $0001
-    ; Clock LCD and SR together 7 more times.
-    sta TftClkBoth
-    sta $0001
-
+		jsr WriteDataLcd
 		lda $0E
-
-		sta SpiSrLd
-    sta $0001
-    ; Clock LCD only.
-    sta TftClockLCD
-    sta $0001
-    ; Clock LCD and SR together 7 more times.
-    sta TftClkBoth
-    sta $0001
+		jsr WriteDataLcd
 
 		; Row address set.
 		lda #$2B
 		jsr WriteCommandLcd
 		lda #$00
-
-		sta SpiSrLd
-    sta $0001
-    ; Clock LCD only.
-    sta TftClockLCD
-    sta $0001
-    ; Clock LCD and SR together 7 more times.
-    sta TftClkBoth
-    sta $0001
-
+		jsr WriteDataLcd
 		lda $0D
-		sbc #$12
-
-		sta SpiSrLd
-    sta $0001
-    ; Clock LCD only.
-    sta TftClockLCD
-    sta $0001
-    ; Clock LCD and SR together 7 more times.
-    sta TftClkBoth
-    sta $0001
-
+		jsr WriteDataLcd
 		lda #$00
-
-		sta SpiSrLd
-    sta $0001
-    ; Clock LCD only.
-    sta TftClockLCD
-    sta $0001
-    ; Clock LCD and SR together 7 more times.
-    sta TftClkBoth
-    sta $0001
-
+		jsr WriteDataLcd
 		lda $0D
-
-		sta SpiSrLd
-    sta $0001
-    ; Clock LCD only.
-    sta TftClockLCD
-    sta $0001
-    ; Clock LCD and SR together 7 more times.
-    sta TftClkBoth
-    sta $0001
+		jsr WriteDataLcd
 
 		; RAM write.
 		lda #$2C
 		jsr WriteCommandLcd
 
-		lda $0C
-		ldx #$FF
-AsteroidLoop1
-		ldy $0200,x
-
+		; Black pixel padding (for lower cost movements).
+		lda #$00
 		sta SpiSrLd
     sta $0001
-
     ; Clock LCD only.
     sta TftClockLCD
     sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
 
+		lda $0C
+		ldx #$17
+AsteroidLoop1
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
     ; Clock LCD and SR together 7 more times.
     sta TftClkBoth
     sta $0001
@@ -977,41 +1070,1644 @@ AsteroidLoop1
 		dex
 		bne AsteroidLoop1
 
-		ldx #$FF
-AsteroidLoop2
-		ldy $0200,x
-
+		; Black pixel padding (for lower cost movements).
+		lda #$00
 		sta SpiSrLd
     sta $0001
-
     ; Clock LCD only.
     sta TftClockLCD
     sta $0001
-
     ; Clock LCD and SR together 7 more times.
     sta TftClkBoth
     sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 2
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0F
+		sbc #$0E
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0F
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$01
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$01
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$1B
+AsteroidLoop2
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
 
 		dex
 		bne AsteroidLoop2
 
-		ldx #$FB
-AsteroidLoop3
-		ldy $0200,x
-
+		; Black pixel padding (for lower cost movements).
+		lda #$00
 		sta SpiSrLd
     sta $0001
-
     ; Clock LCD only.
     sta TftClockLCD
     sta $0001
-
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
     ; Clock LCD and SR together 7 more times.
     sta TftClkBoth
     sta $0001
 
+		;;;;
+		; Row 3
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $10
+		sbc #$10
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $10
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$02
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$02
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$1F
+AsteroidLoop3
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
 		dex
 		bne AsteroidLoop3
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 4
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $11
+		sbc #$12
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $11
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$03
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$03
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$23
+AsteroidLoop4
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop4
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 5
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $12
+		sbc #$14
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $12
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$04
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$04
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$27
+AsteroidLoop5
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop5
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 6
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $13
+		sbc #$16
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $13
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$05
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$05
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$2B
+AsteroidLoop6
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop6
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 7
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $14
+		sbc #$18
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $14
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$06
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$06
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$2F
+AsteroidLoop7
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop7
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 8
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $15
+		sbc #$1A
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $15
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$07
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$07
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$33
+AsteroidLoop8
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop8
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 9
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $16
+		sbc #$1C
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $16
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$08
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$08
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$37
+AsteroidLoop9
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop9
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 10
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $19
+		sbc #$1C
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $17
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$09
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$09
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$3B
+AsteroidLoop10
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop10
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 11
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $18
+		sbc #$1C
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $18
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$0A
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$0A
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$37
+AsteroidLoop11
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop11
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 12
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $19
+		sbc #$1A
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $19
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$0B
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$0B
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$33
+AsteroidLoop12
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop12
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 13
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $1A
+		sbc #$18
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $1A
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$0C
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$0C
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$2F
+AsteroidLoop13
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop13
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 14
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $1B
+		sbc #$16
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $1B
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$0D
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$0D
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$2B
+AsteroidLoop14
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop14
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 15
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $1C
+		sbc #$14
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $1C
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$0E
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$0E
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$27
+AsteroidLoop15
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop15
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 16
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $1D
+		sbc #$12
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $1D
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$0F
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$0F
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$23
+AsteroidLoop16
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop16
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 17
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $1E
+		sbc #$10
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $1E
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$10
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$10
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$1F
+AsteroidLoop17
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop17
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 18
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $1F
+		sbc #$0E
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $1F
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$11
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$11
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$1B
+AsteroidLoop18
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop18
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		;;;;
+		; Row 19
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $20
+		sbc #$0C
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $20
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$12
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$12
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		lda $0C
+		ldx #$17
+AsteroidLoop19
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop19
+
+		; Black pixel padding (for lower cost movements).
+		lda #$00
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
 
 		rts
 
