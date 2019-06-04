@@ -1056,7 +1056,7 @@ DrawAsteroid
     sta $0001
 
 		lda $0C
-		ldx #$17
+		ldx #$16
 AsteroidLoop1
 		sta SpiSrLd
     sta $0001
@@ -1144,7 +1144,7 @@ AsteroidLoop1
     sta $0001
 
 		lda $0C
-		ldx #$1B
+		ldx #$1A
 AsteroidLoop2
 		sta SpiSrLd
 		sta $0001
@@ -1234,7 +1234,7 @@ AsteroidLoop2
     sta $0001
 
 		lda $0C
-		ldx #$1F
+		ldx #$1E
 AsteroidLoop3
 		sta SpiSrLd
 		sta $0001
@@ -1324,7 +1324,7 @@ AsteroidLoop3
     sta $0001
 
 		lda $0C
-		ldx #$23
+		ldx #$22
 AsteroidLoop4
 		sta SpiSrLd
 		sta $0001
@@ -1414,7 +1414,7 @@ AsteroidLoop4
     sta $0001
 
 		lda $0C
-		ldx #$27
+		ldx #$26
 AsteroidLoop5
 		sta SpiSrLd
 		sta $0001
@@ -1504,7 +1504,7 @@ AsteroidLoop5
     sta $0001
 
 		lda $0C
-		ldx #$2B
+		ldx #$2A
 AsteroidLoop6
 		sta SpiSrLd
 		sta $0001
@@ -1594,7 +1594,7 @@ AsteroidLoop6
     sta $0001
 
 		lda $0C
-		ldx #$2F
+		ldx #$2E
 AsteroidLoop7
 		sta SpiSrLd
 		sta $0001
@@ -1684,7 +1684,7 @@ AsteroidLoop7
     sta $0001
 
 		lda $0C
-		ldx #$33
+		ldx #$32
 AsteroidLoop8
 		sta SpiSrLd
 		sta $0001
@@ -1774,7 +1774,7 @@ AsteroidLoop8
     sta $0001
 
 		lda $0C
-		ldx #$37
+		ldx #$36
 AsteroidLoop9
 		sta SpiSrLd
 		sta $0001
@@ -1864,7 +1864,7 @@ AsteroidLoop9
     sta $0001
 
 		lda $0C
-		ldx #$3B
+		ldx #$3A
 AsteroidLoop10
 		sta SpiSrLd
 		sta $0001
@@ -1954,7 +1954,7 @@ AsteroidLoop10
     sta $0001
 
 		lda $0C
-		ldx #$37
+		ldx #$36
 AsteroidLoop11
 		sta SpiSrLd
 		sta $0001
@@ -2044,7 +2044,7 @@ AsteroidLoop11
     sta $0001
 
 		lda $0C
-		ldx #$33
+		ldx #$32
 AsteroidLoop12
 		sta SpiSrLd
 		sta $0001
@@ -2134,7 +2134,7 @@ AsteroidLoop12
     sta $0001
 
 		lda $0C
-		ldx #$2F
+		ldx #$2E
 AsteroidLoop13
 		sta SpiSrLd
 		sta $0001
@@ -2224,7 +2224,7 @@ AsteroidLoop13
     sta $0001
 
 		lda $0C
-		ldx #$2B
+		ldx #$2A
 AsteroidLoop14
 		sta SpiSrLd
 		sta $0001
@@ -2314,7 +2314,7 @@ AsteroidLoop14
     sta $0001
 
 		lda $0C
-		ldx #$27
+		ldx #$26
 AsteroidLoop15
 		sta SpiSrLd
 		sta $0001
@@ -2404,7 +2404,7 @@ AsteroidLoop15
     sta $0001
 
 		lda $0C
-		ldx #$23
+		ldx #$22
 AsteroidLoop16
 		sta SpiSrLd
 		sta $0001
@@ -2494,7 +2494,7 @@ AsteroidLoop16
     sta $0001
 
 		lda $0C
-		ldx #$1F
+		ldx #$1E
 AsteroidLoop17
 		sta SpiSrLd
 		sta $0001
@@ -2584,7 +2584,7 @@ AsteroidLoop17
     sta $0001
 
 		lda $0C
-		ldx #$1B
+		ldx #$1A
 AsteroidLoop18
 		sta SpiSrLd
 		sta $0001
@@ -2674,7 +2674,7 @@ AsteroidLoop18
     sta $0001
 
 		lda $0C
-		ldx #$17
+		ldx #$16
 AsteroidLoop19
 		sta SpiSrLd
 		sta $0001
