@@ -391,12 +391,6 @@ DoNotSkipScanCode
 
 		cmp #$41 ; A
 		bne NotLeft
-		; ldx #$00
-		; stx $0C
-		; jsr DrawAsteroid
-		;
-		; ldx #$FF
-		; stx $0C
 
 		inc $0E
 		inc $0F
@@ -423,12 +417,6 @@ DoNotSkipScanCode
 NotLeft
 		cmp #$53 ; S
 		bne NotRight
-		; ldx #$00
-		; stx $0C
-		; jsr DrawAsteroid
-		;
-		; ldx #$FF
-		; stx $0C
 
 		dec $0E
 		dec $0F
@@ -455,12 +443,6 @@ NotLeft
 NotRight
 		cmp #$51 ; Q
 		bne NotUp
-		ldx #$00
-		stx $0C
-		jsr DrawAsteroid
-
-		ldx #$FF
-		stx $0C
 
 		inc $0D
 		jsr DrawAsteroid
@@ -469,12 +451,6 @@ NotRight
 NotUp
 		cmp #$5A ; Z
 		bne NotDown
-		ldx #$00
-		stx $0C
-		jsr DrawAsteroid
-
-		ldx #$FF
-		stx $0C
 
 		dec $0D
 		jsr DrawAsteroid
@@ -1003,6 +979,56 @@ WriteDataLcd
 ; Speed above all, this is frequently redrawn.
 ; Come on 6502, you can do it!
 DrawAsteroid
+		;;;;
+		; Row 0 - all black pixels for lower cost movements.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0E
+		sbc #$0C
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0E
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		sbc #$01
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		sbc #$01
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		lda #$00
+		ldx #$18
+AsteroidLoop0
+		sta SpiSrLd
+    sta $0001
+    ; Clock LCD only.
+    sta TftClockLCD
+    sta $0001
+    ; Clock LCD and SR together 7 more times.
+    sta TftClkBoth
+    sta $0001
+
+		dex
+		bne AsteroidLoop0
+
 		;;;;
 		; Row 1
 		;;;;
@@ -2708,6 +2734,58 @@ AsteroidLoop19
     ; Clock LCD and SR together 7 more times.
     sta TftClkBoth
     sta $0001
+
+		;;;;
+		; Row 19+1 - all black pixels for lower cost movements.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $20
+		sbc #$0C
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $20
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$13
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda $0D
+		adc #$13
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		lda #$00
+		ldx #$18
+AsteroidLoop19p1
+		sta SpiSrLd
+		sta $0001
+
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		dex
+		bne AsteroidLoop19p1
 
 		rts
 
