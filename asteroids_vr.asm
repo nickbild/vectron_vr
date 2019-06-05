@@ -1844,7 +1844,7 @@ AsteroidLoop9
 		jsr WriteCommandLcd
 		lda #$00
 		jsr WriteDataLcd
-		lda $19
+		lda $17
 		sbc #$1C
 		jsr WriteDataLcd
 		lda #$00
