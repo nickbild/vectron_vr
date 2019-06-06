@@ -149,7 +149,7 @@ StartExe	ORG $8000
 		sta $15
 		lda #$6A
 		sta $16
-		lda #$6B
+		lda #$6A
 		sta $17
 		lda #$6A
 		sta $18
@@ -1890,7 +1890,7 @@ AsteroidLoop9
     sta $0001
 
 		lda $0C
-		ldx #$3A
+		ldx #$36
 AsteroidLoop10
 		sta SpiSrLd
 		sta $0001
