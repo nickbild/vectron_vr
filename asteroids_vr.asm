@@ -131,9 +131,10 @@ StartExe	ORG $8000
 
 		lda #$64
 		sta $0D
-		lda #$62
+
+		lda #$61
 		sta $0E
-		lda #$63
+		lda #$62
 		sta $0F
 		lda #$64
 		sta $10
