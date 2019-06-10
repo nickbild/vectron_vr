@@ -112,6 +112,7 @@ StartExe	ORG $8000
 
 		; Draw common background.
 		jsr DrawBackground
+		jsr DrawCrosshairs
 		; Draw separate (3D) BG for each screen.
 		lda #$01
 		sta TftCs2
@@ -3867,6 +3868,235 @@ LoopYokeData3r
 				jsr WriteDataLcd
 				dey
 				bne LoopYokeData3r
+
+		rts
+
+DrawCrosshairs
+		;;;;
+		; Vertical.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		lda #$77
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		lda #$00
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		lda #$78
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		lda #$95
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		lda #$00
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		lda #$9A
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		ldy #$0C
+LoopCrosshairsVertical
+				lda #$E8
+				sta SpiSrLd
+				sta $0001
+				; Clock LCD only.
+				sta TftClockLCD
+				sta $0001
+				; Clock LCD and SR together 7 more times.
+				sta TftClkBoth
+				sta $0001
+
+				lda #$61
+				sta SpiSrLd
+				sta $0001
+				; Clock LCD only.
+				sta TftClockLCD
+				sta $0001
+				; Clock LCD and SR together 7 more times.
+				sta TftClkBoth
+				sta $0001
+
+				dey
+				bne LoopCrosshairsVertical
+
+		;;;;
+		; Horizontal.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		lda #$74
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		lda #$00
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		lda #$7B
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		lda #$97
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		lda #$00
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+		lda #$98
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		ldy #$10
+LoopCrosshairsHorizontal
+				lda #$E8
+				sta SpiSrLd
+				sta $0001
+				; Clock LCD only.
+				sta TftClockLCD
+				sta $0001
+				; Clock LCD and SR together 7 more times.
+				sta TftClkBoth
+				sta $0001
+
+				lda #$61
+				sta SpiSrLd
+				sta $0001
+				; Clock LCD only.
+				sta TftClockLCD
+				sta $0001
+				; Clock LCD and SR together 7 more times.
+				sta TftClkBoth
+				sta $0001
+
+				dey
+				bne LoopCrosshairsHorizontal
 
 		rts
 
