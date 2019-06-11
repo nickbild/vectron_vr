@@ -19,28 +19,101 @@
 ; $0009 - SPI shift register load
 ; $000A - TFT LCD reset
 ;
-; $000B - Asteroid 1 active flag
-; $000C - Asteroid 1 color
-; $000D - Asteroid 1 bottommost y coordinate
-; $000E - Asteroid 1 leftmost x coordinate, y
-; $000F - Asteroid 1 leftmost x coordinate, y+1
-; $0010 - Asteroid 1 leftmost x coordinate, y+2
-; $0011 - Asteroid 1 leftmost x coordinate, y+3
-; $0012 - Asteroid 1 leftmost x coordinate, y+4
-; $0013 - Asteroid 1 leftmost x coordinate, y+5
-; $0014 - Asteroid 1 leftmost x coordinate, y+6
-; $0015 - Asteroid 1 leftmost x coordinate, y+7
-; $0016 - Asteroid 1 leftmost x coordinate, y+8
-; $0017 - Asteroid 1 leftmost x coordinate, y+9
-; $0018 - Asteroid 1 leftmost x coordinate, y+10
-; $0019 - Asteroid 1 leftmost x coordinate, y+11
-; $001A - Asteroid 1 leftmost x coordinate, y+12
-; $001B - Asteroid 1 leftmost x coordinate, y+13
-; $001C - Asteroid 1 leftmost x coordinate, y+14
-; $001D - Asteroid 1 leftmost x coordinate, y+15
-; $001E - Asteroid 1 leftmost x coordinate, y+16
-; $001F - Asteroid 1 leftmost x coordinate, y+17
-; $0020 - Asteroid 1 leftmost x coordinate, y+18
+; Active asteroid.
+; $000B - Asteroid active flag
+; $000C - Asteroid color
+; $000D - Asteroid bottommost y coordinate
+; $000E - Asteroid leftmost x coordinate, y
+; $000F - Asteroid leftmost x coordinate, y+1
+; $0010 - Asteroid leftmost x coordinate, y+2
+; $0011 - Asteroid leftmost x coordinate, y+3
+; $0012 - Asteroid leftmost x coordinate, y+4
+; $0013 - Asteroid leftmost x coordinate, y+5
+; $0014 - Asteroid leftmost x coordinate, y+6
+; $0015 - Asteroid leftmost x coordinate, y+7
+; $0016 - Asteroid leftmost x coordinate, y+8
+; $0017 - Asteroid leftmost x coordinate, y+9
+; $0018 - Asteroid leftmost x coordinate, y+10
+; $0019 - Asteroid leftmost x coordinate, y+11
+; $001A - Asteroid leftmost x coordinate, y+12
+; $001B - Asteroid leftmost x coordinate, y+13
+; $001C - Asteroid leftmost x coordinate, y+14
+; $001D - Asteroid leftmost x coordinate, y+15
+; $001E - Asteroid leftmost x coordinate, y+16
+; $001F - Asteroid leftmost x coordinate, y+17
+; $0020 - Asteroid leftmost x coordinate, y+18
+;
+; Asteroid 1.
+; $0021 - Asteroid active flag
+; $0022 - Asteroid color
+; $0023 - Asteroid bottommost y coordinate
+; $0024 - Asteroid leftmost x coordinate, y
+; $0025 - Asteroid leftmost x coordinate, y+1
+; $0026 - Asteroid leftmost x coordinate, y+2
+; $0027 - Asteroid leftmost x coordinate, y+3
+; $0028 - Asteroid leftmost x coordinate, y+4
+; $0029 - Asteroid leftmost x coordinate, y+5
+; $002A - Asteroid leftmost x coordinate, y+6
+; $002B - Asteroid leftmost x coordinate, y+7
+; $002C - Asteroid leftmost x coordinate, y+8
+; $002D - Asteroid leftmost x coordinate, y+9
+; $002E - Asteroid leftmost x coordinate, y+10
+; $002F - Asteroid leftmost x coordinate, y+11
+; $0030 - Asteroid leftmost x coordinate, y+12
+; $0031 - Asteroid leftmost x coordinate, y+13
+; $0032 - Asteroid leftmost x coordinate, y+14
+; $0033 - Asteroid leftmost x coordinate, y+15
+; $0034 - Asteroid leftmost x coordinate, y+16
+; $0035 - Asteroid leftmost x coordinate, y+17
+; $0036 - Asteroid leftmost x coordinate, y+18
+;
+; Asteroid 2.
+; $0037 - Asteroid active flag
+; $0038 - Asteroid color
+; $0039 - Asteroid bottommost y coordinate
+; $003A - Asteroid leftmost x coordinate, y
+; $003B - Asteroid leftmost x coordinate, y+1
+; $003C - Asteroid leftmost x coordinate, y+2
+; $003D - Asteroid leftmost x coordinate, y+3
+; $003E - Asteroid leftmost x coordinate, y+4
+; $003F - Asteroid leftmost x coordinate, y+5
+; $0040 - Asteroid leftmost x coordinate, y+6
+; $0041 - Asteroid leftmost x coordinate, y+7
+; $0042 - Asteroid leftmost x coordinate, y+8
+; $0043 - Asteroid leftmost x coordinate, y+9
+; $0044 - Asteroid leftmost x coordinate, y+10
+; $0045 - Asteroid leftmost x coordinate, y+11
+; $0046 - Asteroid leftmost x coordinate, y+12
+; $0047 - Asteroid leftmost x coordinate, y+13
+; $0048 - Asteroid leftmost x coordinate, y+14
+; $0049 - Asteroid leftmost x coordinate, y+15
+; $004A - Asteroid leftmost x coordinate, y+16
+; $004B - Asteroid leftmost x coordinate, y+17
+; $004C - Asteroid leftmost x coordinate, y+18
+;
+; Asteroid 3.
+; $004D - Asteroid active flag
+; $004E - Asteroid color
+; $004F - Asteroid bottommost y coordinate
+; $0050 - Asteroid leftmost x coordinate, y
+; $0051 - Asteroid leftmost x coordinate, y+1
+; $0052 - Asteroid leftmost x coordinate, y+2
+; $0053 - Asteroid leftmost x coordinate, y+3
+; $0054 - Asteroid leftmost x coordinate, y+4
+; $0055 - Asteroid leftmost x coordinate, y+5
+; $0056 - Asteroid leftmost x coordinate, y+6
+; $0057 - Asteroid leftmost x coordinate, y+7
+; $0058 - Asteroid leftmost x coordinate, y+8
+; $0059 - Asteroid leftmost x coordinate, y+9
+; $005A - Asteroid leftmost x coordinate, y+10
+; $005B - Asteroid leftmost x coordinate, y+11
+; $005C - Asteroid leftmost x coordinate, y+12
+; $005D - Asteroid leftmost x coordinate, y+13
+; $005E - Asteroid leftmost x coordinate, y+14
+; $005F - Asteroid leftmost x coordinate, y+15
+; $0060 - Asteroid leftmost x coordinate, y+16
+; $0061 - Asteroid leftmost x coordinate, y+17
+; $0062 - Asteroid leftmost x coordinate, y+18
 ;
 ; $0100-$01FF - 6502 stack
 ; $7FBE-$7FBF - Temporary location for LCD data manipulation.
@@ -126,55 +199,154 @@ StartExe	ORG $8000
 		sta $0001
 		jsr DrawBackgroundRight
 
-		; Initialize an asteroid.
-		lda #$FF
-		sta $0C
-
-		lda #$64
-		sta $0D
-
-		lda #$61
-		sta $0E
-		lda #$62
-		sta $0F
-		lda #$64
-		sta $10
-		lda #$65
-		sta $11
-		lda #$66
-		sta $12
-		lda #$67
-		sta $13
-		lda #$68
-		sta $14
-		lda #$69
-		sta $15
-		lda #$6A
-		sta $16
-		lda #$6A
-		sta $17
-		lda #$6A
-		sta $18
-		lda #$69
-		sta $19
-		lda #$68
-		sta $1A
-		lda #$67
-		sta $1B
-		lda #$66
-		sta $1C
-		lda #$65
-		sta $1D
-		lda #$64
-		sta $1E
-		lda #$63
-		sta $1F
-		lda #$62
-		sta $20
-
 		lda #$00
 		sta TftCs1
 
+		; Initialize asteroid 1.
+		lda #$FF
+		sta $22
+
+		lda #$64
+		sta $23
+
+		lda #$61
+		sta $24
+		lda #$62
+		sta $25
+		lda #$64
+		sta $26
+		lda #$65
+		sta $27
+		lda #$66
+		sta $28
+		lda #$67
+		sta $29
+		lda #$68
+		sta $2A
+		lda #$69
+		sta $2B
+		lda #$6A
+		sta $2C
+		lda #$6A
+		sta $2D
+		lda #$6A
+		sta $2E
+		lda #$69
+		sta $2F
+		lda #$68
+		sta $30
+		lda #$67
+		sta $31
+		lda #$66
+		sta $32
+		lda #$65
+		sta $33
+		lda #$64
+		sta $34
+		lda #$63
+		sta $35
+		lda #$62
+		sta $36
+
+		jsr LoadAsteroid1
+		jsr DrawAsteroid
+
+		; Initialize asteroid 2.
+		lda #$FF
+		sta $38
+
+		lda #$64
+		sta $39
+
+		lda #$61
+		sta $3A
+		lda #$62
+		sta $3B
+		lda #$64
+		sta $3C
+		lda #$65
+		sta $3D
+		lda #$66
+		sta $3E
+		lda #$67
+		sta $3F
+		lda #$68
+		sta $40
+		lda #$69
+		sta $41
+		lda #$6A
+		sta $42
+		lda #$6A
+		sta $43
+		lda #$6A
+		sta $44
+		lda #$69
+		sta $45
+		lda #$68
+		sta $46
+		lda #$67
+		sta $47
+		lda #$66
+		sta $48
+		lda #$65
+		sta $49
+		lda #$64
+		sta $4A
+		lda #$63
+		sta $4B
+		lda #$62
+		sta $4C
+
+		jsr LoadAsteroid2
+		jsr DrawAsteroid
+
+		; Initialize asteroid 3.
+		lda #$FF
+		sta $4E
+
+		lda #$64
+		sta $4F
+
+		lda #$61
+		sta $50
+		lda #$62
+		sta $51
+		lda #$64
+		sta $52
+		lda #$65
+		sta $53
+		lda #$66
+		sta $54
+		lda #$67
+		sta $55
+		lda #$68
+		sta $56
+		lda #$69
+		sta $57
+		lda #$6A
+		sta $58
+		lda #$6A
+		sta $59
+		lda #$6A
+		sta $5A
+		lda #$69
+		sta $5B
+		lda #$68
+		sta $5C
+		lda #$67
+		sta $5D
+		lda #$66
+		sta $5E
+		lda #$65
+		sta $5F
+		lda #$64
+		sta $60
+		lda #$63
+		sta $61
+		lda #$62
+		sta $62
+
+		jsr LoadAsteroid3
 		jsr DrawAsteroid
 
 		cli
@@ -367,131 +539,296 @@ DoNotSkipScanCode
 		tax
 		lda ScanCodeLookup,x
 
-		; $000B - Asteroid 1 active flag
-		; $000C - Asteroid 1 color
-		; $000D - Asteroid 1 bottommost y coordinate
-		; $000E - Asteroid 1 leftmost x coordinate, y
-		; $000F - Asteroid 1 leftmost x coordinate, y+1
-		; $0010 - Asteroid 1 leftmost x coordinate, y+2
-		; $0011 - Asteroid 1 leftmost x coordinate, y+3
-		; $0012 - Asteroid 1 leftmost x coordinate, y+4
-		; $0013 - Asteroid 1 leftmost x coordinate, y+5
-		; $0014 - Asteroid 1 leftmost x coordinate, y+6
-		; $0015 - Asteroid 1 leftmost x coordinate, y+7
-		; $0016 - Asteroid 1 leftmost x coordinate, y+8
-		; $0017 - Asteroid 1 leftmost x coordinate, y+9
-		; $0018 - Asteroid 1 leftmost x coordinate, y+10
-		; $0019 - Asteroid 1 leftmost x coordinate, y+11
-		; $001A - Asteroid 1 leftmost x coordinate, y+12
-		; $001B - Asteroid 1 leftmost x coordinate, y+13
-		; $001C - Asteroid 1 leftmost x coordinate, y+14
-		; $001D - Asteroid 1 leftmost x coordinate, y+15
-		; $001E - Asteroid 1 leftmost x coordinate, y+16
-		; $001F - Asteroid 1 leftmost x coordinate, y+17
-		; $0020 - Asteroid 1 leftmost x coordinate, y+18
-		; 41=A; 53=S; 51=Q; 5A=Z
-
 		cmp #$41 ; A
 		bne NotLeft
 
-		inc $0E
-		inc $0F
-		inc $10
-		inc $11
-		inc $12
-		inc $13
-		inc $14
-		inc $15
-		inc $16
-		inc $17
-		inc $18
-		inc $19
-		inc $1A
-		inc $1B
-		inc $1C
-		inc $1D
-		inc $1E
-		inc $1F
-		inc $20
+		; Asteroid 1.
+		inc $24
+		inc $25
+		inc $26
+		inc $27
+		inc $28
+		inc $29
+		inc $2A
+		inc $2B
+		inc $2C
+		inc $2D
+		inc $2E
+		inc $2F
+		inc $30
+		inc $31
+		inc $32
+		inc $33
+		inc $34
+		inc $35
+		inc $36
 
+		; Asteroid 2.
+		inc $3A
+		inc $3B
+		inc $3C
+		inc $3D
+		inc $3E
+		inc $3F
+		inc $40
+		inc $41
+		inc $42
+		inc $43
+		inc $44
+		inc $45
+		inc $46
+		inc $47
+		inc $48
+		inc $49
+		inc $4A
+		inc $4B
+		inc $4C
+
+		; Asteroid 3.
+		inc $50
+		inc $51
+		inc $52
+		inc $53
+		inc $54
+		inc $55
+		inc $56
+		inc $57
+		inc $58
+		inc $59
+		inc $5A
+		inc $5B
+		inc $5C
+		inc $5D
+		inc $5E
+		inc $5F
+		inc $60
+		inc $61
+		inc $62
+
+		jsr LoadAsteroid1
 		jsr DrawAsteroid
+
+		jsr LoadAsteroid2
+		jsr DrawAsteroid
+
+		jsr LoadAsteroid3
+		jsr DrawAsteroid
+
 		jmp EndKbInput
 
 NotLeft
 		cmp #$53 ; S
 		bne NotRight
 
-		dec $0E
-		dec $0F
-		dec $10
-		dec $11
-		dec $12
-		dec $13
-		dec $14
-		dec $15
-		dec $16
-		dec $17
-		dec $18
-		dec $19
-		dec $1A
-		dec $1B
-		dec $1C
-		dec $1D
-		dec $1E
-		dec $1F
-		dec $20
+		; Asteroid 1.
+		dec $24
+		dec $25
+		dec $26
+		dec $27
+		dec $28
+		dec $29
+		dec $2A
+		dec $2B
+		dec $2C
+		dec $2D
+		dec $2E
+		dec $2F
+		dec $30
+		dec $31
+		dec $32
+		dec $33
+		dec $34
+		dec $35
+		dec $36
+
+		; Asteroid 2.
+		dec $3A
+		dec $3B
+		dec $3C
+		dec $3D
+		dec $3E
+		dec $3F
+		dec $40
+		dec $41
+		dec $42
+		dec $43
+		dec $44
+		dec $45
+		dec $46
+		dec $47
+		dec $48
+		dec $49
+		dec $4A
+		dec $4B
+		dec $4C
+
+		; Asteroid 3.
+		dec $50
+		dec $51
+		dec $52
+		dec $53
+		dec $54
+		dec $55
+		dec $56
+		dec $57
+		dec $58
+		dec $59
+		dec $5A
+		dec $5B
+		dec $5C
+		dec $5D
+		dec $5E
+		dec $5F
+		dec $60
+		dec $61
+		dec $62
+
+		jsr LoadAsteroid1
 		jsr DrawAsteroid
+
+		jsr LoadAsteroid2
+		jsr DrawAsteroid
+
+		jsr LoadAsteroid3
+		jsr DrawAsteroid
+
 		jmp EndKbInput
 
 NotRight
 		cmp #$51 ; Q
 		bne NotUp
 
-		inc $0D
+		inc $23
+		inc $39
+		inc $4F
+
+		jsr LoadAsteroid1
 		jsr DrawAsteroid
+
+		jsr LoadAsteroid2
+		jsr DrawAsteroid
+
+		jsr LoadAsteroid3
+		jsr DrawAsteroid
+
 		jmp EndKbInput
 
 NotUp
 		cmp #$5A ; Z
 		bne NotDown
 
-		dec $0D
+		dec $23
+		dec $39
+		dec $4F
+
+		jsr LoadAsteroid1
 		jsr DrawAsteroid
+
+		jsr LoadAsteroid2
+		jsr DrawAsteroid
+
+		jsr LoadAsteroid3
+		jsr DrawAsteroid
+
 		jmp EndKbInput
 
 NotDown
 		cmp #$4C ; L
 		bne NotL
 
-		lda $16
+		lda $2C
 		cmp #$77
-		bcc NoCollision
+		bcc NoCollision1
 
 		sbc #$1C
 		cmp #$77
-		bcs NoCollision
+		bcs NoCollision1
 
-		lda $0D
+		lda $23
 		cmp #$98
-		bcs NoCollision
+		bcs NoCollision1
 
 		adc #$12
 		cmp #$98
-		bcc NoCollision
+		bcc NoCollision1
 
 		; Astroid/crosshairs collision.
 		lda #$55
-		sta $0C
+		sta $22
+
+		jsr LoadAsteroid1
 		jsr DrawAsteroid
 
-NoCollision
+NoCollision1
+
+		lda $42
+		cmp #$77
+		bcc NoCollision2
+
+		sbc #$1C
+		cmp #$77
+		bcs NoCollision2
+
+		lda $39
+		cmp #$98
+		bcs NoCollision2
+
+		adc #$12
+		cmp #$98
+		bcc NoCollision2
+
+		; Astroid/crosshairs collision.
+		lda #$55
+		sta $38
+
+		jsr LoadAsteroid2
+		jsr DrawAsteroid
+
+NoCollision2
+
+		lda $58
+		cmp #$77
+		bcc NoCollision3
+
+		sbc #$1C
+		cmp #$77
+		bcs NoCollision3
+
+		lda $4F
+		cmp #$98
+		bcs NoCollision3
+
+		adc #$12
+		cmp #$98
+		bcc NoCollision3
+
+		; Astroid/crosshairs collision.
+		lda #$55
+		sta $4E
+
+		jsr LoadAsteroid3
+		jsr DrawAsteroid
+
+NoCollision3
+
+
 NotL
 		; TEMPORARY
 		cmp #$4B ; K
 		bne NotK
+
 		lda #$FF
-		sta $0C
+		sta $22
+		sta $38
+		sta $4E
+
+		jsr LoadAsteroid1
 		jsr DrawAsteroid
+		jsr LoadAsteroid2
+		jsr DrawAsteroid
+		jsr LoadAsteroid3
+		jsr DrawAsteroid
+
 		jmp EndKbInput
 NotK
 
@@ -1014,6 +1351,151 @@ WriteDataLcd
     sta $0001
 
     rts
+
+; Load asteroids into active asteroid memory slot.
+LoadAsteroid1
+		lda $21
+		sta $0B
+		lda $22
+		sta $0C
+		lda $23
+		sta $0D
+		lda $24
+		sta $0E
+		lda $25
+		sta $0F
+		lda $26
+		sta $10
+		lda $27
+		sta $11
+		lda $28
+		sta $12
+		lda $29
+		sta $13
+		lda $2A
+		sta $14
+		lda $2B
+		sta $15
+		lda $2C
+		sta $16
+		lda $2D
+		sta $17
+		lda $2E
+		sta $18
+		lda $2F
+		sta $19
+		lda $30
+		sta $1A
+		lda $31
+		sta $1B
+		lda $32
+		sta $1C
+		lda $33
+		sta $1D
+		lda $34
+		sta $1E
+		lda $35
+		sta $1F
+		lda $36
+		sta $20
+
+		rts
+
+LoadAsteroid2
+		lda $37
+		sta $0B
+		lda $38
+		sta $0C
+		lda $39
+		sta $0D
+		lda $3A
+		sta $0E
+		lda $3B
+		sta $0F
+		lda $3C
+		sta $10
+		lda $3D
+		sta $11
+		lda $3E
+		sta $12
+		lda $3F
+		sta $13
+		lda $40
+		sta $14
+		lda $41
+		sta $15
+		lda $42
+		sta $16
+		lda $43
+		sta $17
+		lda $44
+		sta $18
+		lda $45
+		sta $19
+		lda $46
+		sta $1A
+		lda $47
+		sta $1B
+		lda $48
+		sta $1C
+		lda $49
+		sta $1D
+		lda $4A
+		sta $1E
+		lda $4B
+		sta $1F
+		lda $4C
+		sta $20
+
+		rts
+
+LoadAsteroid3
+		lda $4D
+		sta $0B
+		lda $4E
+		sta $0C
+		lda $4F
+		sta $0D
+		lda $50
+		sta $0E
+		lda $51
+		sta $0F
+		lda $52
+		sta $10
+		lda $53
+		sta $11
+		lda $54
+		sta $12
+		lda $55
+		sta $13
+		lda $56
+		sta $14
+		lda $57
+		sta $15
+		lda $58
+		sta $16
+		lda $59
+		sta $17
+		lda $5A
+		sta $18
+		lda $5B
+		sta $19
+		lda $5C
+		sta $1A
+		lda $5D
+		sta $1B
+		lda $5E
+		sta $1C
+		lda $5F
+		sta $1D
+		lda $60
+		sta $1E
+		lda $61
+		sta $1F
+		lda $62
+		sta $20
+
+		rts
 
 ; Speed above all, this is frequently redrawn.
 ; Come on 6502, you can do it!
