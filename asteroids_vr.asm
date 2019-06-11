@@ -255,46 +255,46 @@ StartExe	ORG $8000
 		lda #$FF
 		sta $38
 
-		lda #$64
+		lda #$98
 		sta $39
 
-		lda #$61
+		lda #$B0
 		sta $3A
-		lda #$62
+		lda #$B1
 		sta $3B
-		lda #$64
+		lda #$B3
 		sta $3C
-		lda #$65
+		lda #$B4
 		sta $3D
-		lda #$66
+		lda #$B5
 		sta $3E
-		lda #$67
+		lda #$B6
 		sta $3F
-		lda #$68
+		lda #$B7
 		sta $40
-		lda #$69
+		lda #$B8
 		sta $41
-		lda #$6A
+		lda #$BA
 		sta $42
-		lda #$6A
+		lda #$BA
 		sta $43
-		lda #$6A
+		lda #$BA
 		sta $44
-		lda #$69
+		lda #$B9
 		sta $45
-		lda #$68
+		lda #$B8
 		sta $46
-		lda #$67
+		lda #$B7
 		sta $47
-		lda #$66
+		lda #$B6
 		sta $48
-		lda #$65
+		lda #$B5
 		sta $49
-		lda #$64
+		lda #$B4
 		sta $4A
-		lda #$63
+		lda #$B3
 		sta $4B
-		lda #$62
+		lda #$B2
 		sta $4C
 
 		jsr LoadAsteroid2
@@ -304,46 +304,46 @@ StartExe	ORG $8000
 		lda #$FF
 		sta $4E
 
-		lda #$64
+		lda #$C0
 		sta $4F
 
-		lda #$61
+		lda #$31
 		sta $50
-		lda #$62
+		lda #$32
 		sta $51
-		lda #$64
+		lda #$34
 		sta $52
-		lda #$65
+		lda #$35
 		sta $53
-		lda #$66
+		lda #$36
 		sta $54
-		lda #$67
+		lda #$37
 		sta $55
-		lda #$68
+		lda #$38
 		sta $56
-		lda #$69
+		lda #$39
 		sta $57
-		lda #$6A
+		lda #$3A
 		sta $58
-		lda #$6A
+		lda #$3A
 		sta $59
-		lda #$6A
+		lda #$3A
 		sta $5A
-		lda #$69
+		lda #$39
 		sta $5B
-		lda #$68
+		lda #$38
 		sta $5C
-		lda #$67
+		lda #$37
 		sta $5D
-		lda #$66
+		lda #$36
 		sta $5E
-		lda #$65
+		lda #$35
 		sta $5F
-		lda #$64
+		lda #$34
 		sta $60
-		lda #$63
+		lda #$33
 		sta $61
-		lda #$62
+		lda #$32
 		sta $62
 
 		jsr LoadAsteroid3
@@ -540,8 +540,10 @@ DoNotSkipScanCode
 		lda ScanCodeLookup,x
 
 		cmp #$41 ; A
-		bne NotLeft
+		beq IsLeft
+		jmp NotLeft
 
+IsLeft
 		; Asteroid 1.
 		inc $24
 		inc $25
@@ -618,7 +620,10 @@ DoNotSkipScanCode
 
 NotLeft
 		cmp #$53 ; S
-		bne NotRight
+		beq IsRight
+		jmp NotRight
+
+IsRight
 
 		; Asteroid 1.
 		dec $24
