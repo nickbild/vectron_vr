@@ -413,6 +413,7 @@ DoNotSkipScanCode
 		inc $1E
 		inc $1F
 		inc $20
+
 		jsr DrawAsteroid
 		jmp EndKbInput
 
@@ -459,7 +460,43 @@ NotUp
 		jmp EndKbInput
 
 NotDown
+		cmp #$4C ; L
+		bne NotL
+
+		lda $16
+		cmp #$77
+		bcc NoCollision
+
+		sbc #$1C
+		cmp #$77
+		bcs NoCollision
+
+		lda $0D
+		cmp #$98
+		bcs NoCollision
+
+		adc #$12
+		cmp #$98
+		bcc NoCollision
+
+		; Astroid/crosshairs collision.
+		lda #$55
+		sta $0C
+		jsr DrawAsteroid
+
+NoCollision
+NotL
+		; TEMPORARY
+		cmp #$4B ; K
+		bne NotK
+		lda #$FF
+		sta $0C
+		jsr DrawAsteroid
+		jmp EndKbInput
+NotK
+
 EndKbInput
+		jsr DrawCrosshairs
 
 ; Remove writing to character LCD for now.
 ; 		; Store data in memory location read by LCD.
