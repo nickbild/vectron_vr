@@ -18,6 +18,20 @@ To demonstrate the abilities of the system, the 3D game Asteroids VR has been de
 
 Coming soon.
 
+## Optimizations
+
+One of the more notable optimizations that allow this to run at a rapid frame rate on a 6502 could be thought of as a primitive form of co-processing.
+
+The TFT LCD screens operate via SPI.  This means that each bit needs to be individually clocked to the screen.  There are 76,800 addressable pixels, each of which requires 2 bytes of color data (16 bits!) to place a single pixel (plus some additional setup to choose the coordinates).  The low clock speed of the 6502 makes clocking in each bit via processor instructions too slow for the rapid refresh rate needed for something like a video game.
+
+I sped this up greatly by adding hardware that will send exactly 7 square wave pulses at a rate of 7MHz after a signal is given at a specific address.  So, I am able to issue the 1st clock for each byte programmatically, then the next 7 happen for free without the need for any control from the CPU.  Since this clocking happens at 7MHz, all 7 pulses will occur in 1 microsecond.  The fastest instruction for a 6502 takes 2 clocks to execute (system clock speed 1.75MHz).  As such, it is impossible for another instruction to interrupt the automatic clocking after it begins.  I can start it, forget it, and continue with normal program execution.  No need for any delay cycles!
+
+The second optimization is a little bump up in the system clock speed.  The Vectron 64 normally runs at 1MHz.  I've increased that to 1.75MHz for a free 75% speed boost.  This is well within the boundaries of what the 6502s of old could be clocked at, so the Vectron 64 is still staying true to its retrocomputing roots.
+
+## How Does It Work?
+
+An identical background image is drawn for both eyes.  Any element that should be in 3D (asteroid, cockpit control, etc.) is drawn in slightly different positions for each eye.  When our eyes recognize a difference between the two images, we perceive that difference as depth.  The result is that we perceive that we are seeing a single image, and certain elements appear to be floating at different depths, depending on the distance between them in the pair of screens.  See [Wikipedia - Stereopsis](https://en.wikipedia.org/wiki/Stereopsis) for more information.
+
 ## About the Author
 
 [Nick A. Bild, MS](https://nickbild79.firebaseapp.com/#!/)
