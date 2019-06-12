@@ -6,7 +6,7 @@
 
 Vectron VR is a virtual reality peripheral for the [Vectron 64](https://github.com/nickbild/vectron_64) 6502 CPU-based breadboard computer.  It delivers independent 320x240 pixel images to each eye, thereby producing a stereoscopic 3D visual effect.
 
-To demonstrate the abilities of the system, the 3D game Asteroids VR has been developed.
+To demonstrate the abilities of the system, the 3D game [Asteroids VR](https://github.com/nickbild/vectron_vr/blob/master/asteroids_vr.asm) has been developed.
 
 ![Vectron VR angle](https://raw.githubusercontent.com/nickbild/vectron_vr/master/img/20190611_205845_sm.jpg)
 
@@ -31,6 +31,18 @@ The second optimization is a little bump up in the system clock speed.  The Vect
 ## How Does It Work?
 
 An identical background image is drawn for both eyes.  Any element that should be in 3D (asteroid, cockpit control, etc.) is drawn in slightly different positions for each eye.  When our eyes recognize a difference between the two images, we perceive that difference as depth.  The result is that we perceive that we are seeing a single image, and certain elements appear to be floating at different depths, depending on the distance between them in the pair of screens.  See [Wikipedia - Stereopsis](https://en.wikipedia.org/wiki/Stereopsis) for more information.
+
+## Asteroids VR
+
+[Asteroids VR](https://github.com/nickbild/vectron_vr/blob/master/asteroids_vr.asm) is a 3D first person reimagining of the classic [Asteroids](https://en.wikipedia.org/wiki/Asteroids_(video_game)) game.  You sit in the cockpit of your spaceship (with 3D controls), looking out at a field of stars, while you blast away at asteroids that appear to be coming towards you.
+
+| Key | Function |
+| --- | -------- |
+| A | Fly Left |
+| S | Fly Right |
+| Q | Nose Down |
+| Z | Nose Up |
+| L | Fire Laser Cannon |
 
 ## About the Author
 
