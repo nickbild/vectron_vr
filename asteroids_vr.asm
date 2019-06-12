@@ -234,6 +234,7 @@ StartExe	ORG $8000
 		; Draw common background.
 		jsr DrawBackground
 		jsr DrawCrosshairs
+		jsr DrawStarfield
 		; Draw separate (3D) BG for each screen.
 		lda #$01
 		sta TftCs2
@@ -822,6 +823,7 @@ IsLeft
 		sta TftCs2
 		sta $0001
 
+		jsr DrawStarfield
 		jsr LoadAsteroid1
 		jsr DrawAsteroid
 
@@ -971,6 +973,7 @@ IsRight
 		sta TftCs2
 		sta $0001
 
+		jsr DrawStarfield
 		jsr LoadAsteroid1
 		jsr DrawAsteroid
 
@@ -1018,6 +1021,7 @@ NotRight
 		sta TftCs2
 		sta $0001
 
+		jsr DrawStarfield
 		jsr LoadAsteroid1
 		jsr DrawAsteroid
 
@@ -1065,6 +1069,7 @@ NotUp
 		sta TftCs2
 		sta $0001
 
+		jsr DrawStarfield
 		jsr LoadAsteroid1
 		jsr DrawAsteroid
 
@@ -1134,7 +1139,6 @@ IsL
 		; Make asteroid disappear.
 		jsr Delay
 		jsr Delay
-		jsr Delay
 		lda #$00
 		sta $22
 		jsr LoadAsteroid1
@@ -1187,7 +1191,6 @@ NoCollision1
 		jsr DrawAsteroid
 
 		; Make asteroid disappear.
-		jsr Delay
 		jsr Delay
 		jsr Delay
 		lda #$00
@@ -1251,7 +1254,6 @@ NoCollision2
 		jsr DrawAsteroid
 
 		; Make asteroid disappear.
-		jsr Delay
 		jsr Delay
 		jsr Delay
 		lda #$00
@@ -5171,6 +5173,654 @@ LoopCrosshairsHorizontal
 
 				dey
 				bne LoopCrosshairsHorizontal
+
+		rts
+
+DrawStarfield
+		;;;;
+		; Star.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$BE
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$BE
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$39
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$39
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Pixel data.
+		lda #$FF
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		;;;;
+		; Star.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$87
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$87
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$34
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$34
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Pixel data.
+		lda #$FF
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		;;;;
+		; Star.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$35
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$35
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$3C
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$3C
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Pixel data.
+		lda #$FF
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		;;;;
+		; Star.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$49
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$49
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$52
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$52
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Pixel data.
+		lda #$FF
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		;;;;
+		; Star.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$A9
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$A9
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$53
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$53
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Pixel data.
+		lda #$FF
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		;;;;
+		; Star.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$73
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$73
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$7B
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$7B
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Pixel data.
+		lda #$FF
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		;;;;
+		; Star.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$46
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$46
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$9E
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$9E
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Pixel data.
+		lda #$FF
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		;;;;
+		; Star.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$29
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$29
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$A9
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$A9
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Pixel data.
+		lda #$FF
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		;;;;
+		; Star.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$7A
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$7A
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$AE
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$AE
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Pixel data.
+		lda #$FF
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		;;;;
+		; Star.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$C7
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$C7
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$87
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$87
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Pixel data.
+		lda #$FF
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		;;;;
+		; Star.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$31
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$31
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$E7
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$E7
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Pixel data.
+		lda #$FF
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		;;;;
+		; Star.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$38
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$38
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$F6
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$F6
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Pixel data.
+		lda #$FF
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		;;;;
+		; Star.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$88
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$88
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$E1
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$E1
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Pixel data.
+		lda #$FF
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		;;;;
+		; Star.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$87
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$87
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$FF
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$FF
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Pixel data.
+		lda #$FF
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
+
+		;;;;
+		; Star.
+		;;;;
+
+		; Column address set.
+		lda #$2A
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$E0
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$E0
+		jsr WriteDataLcd
+
+		; Row address set.
+		lda #$2B
+		jsr WriteCommandLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$FA
+		jsr WriteDataLcd
+		lda #$00
+		jsr WriteDataLcd
+		lda #$FA
+		jsr WriteDataLcd
+
+		; RAM write.
+		lda #$2C
+		jsr WriteCommandLcd
+
+		; Pixel data.
+		lda #$FF
+		sta SpiSrLd
+		sta $0001
+		; Clock LCD only.
+		sta TftClockLCD
+		sta $0001
+		; Clock LCD and SR together 7 more times.
+		sta TftClkBoth
+		sta $0001
 
 		rts
 
