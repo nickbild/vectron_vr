@@ -1008,6 +1008,8 @@ NotRight
 		inc $23
 		inc $39
 		inc $4F
+		inc $65
+		inc $7B
 
 		; Enable both screens.
 		lda #$00
@@ -1053,6 +1055,8 @@ NotUp
 		dec $23
 		dec $39
 		dec $4F
+		dec $65
+		dec $7B
 
 		; Enable both screens.
 		lda #$00
@@ -1114,9 +1118,25 @@ IsL
 		bcc NoCollision1
 
 		; Astroid/crosshairs collision.
-		lda #$55
+		lda #$88
 		sta $22
 
+		; Enable both screens.
+		lda #$00
+		sta TftCs1
+		sta $0001
+		sta TftCs2
+		sta $0001
+
+		jsr LoadAsteroid1
+		jsr DrawAsteroid
+
+		; Make asteroid disappear.
+		jsr Delay
+		jsr Delay
+		jsr Delay
+		lda #$00
+		sta $22
 		jsr LoadAsteroid1
 		jsr DrawAsteroid
 
@@ -1139,7 +1159,7 @@ NoCollision1
 		bcc NoCollision2
 
 		; Astroid/crosshairs collision.
-		lda #$55
+		lda #$88
 		sta $38
 		sta $64
 
@@ -1166,6 +1186,24 @@ NoCollision1
 		jsr LoadAsteroid2Right
 		jsr DrawAsteroid
 
+		; Make asteroid disappear.
+		jsr Delay
+		jsr Delay
+		jsr Delay
+		lda #$00
+		sta $38
+		sta $64
+		; Enable both screens.
+		lda #$00
+		sta TftCs1
+		sta $0001
+		sta TftCs2
+		sta $0001
+		jsr LoadAsteroid2Left
+		jsr DrawAsteroid
+		jsr LoadAsteroid2Right
+		jsr DrawAsteroid
+
 NoCollision2
 
 		lda $58
@@ -1185,7 +1223,7 @@ NoCollision2
 		bcc NoCollision3
 
 		; Astroid/crosshairs collision.
-		lda #$55
+		lda #$88
 		sta $4E
 		sta $7A
 
@@ -1209,6 +1247,24 @@ NoCollision2
 		sta TftCs2
 		sta $0001
 
+		jsr LoadAsteroid3Right
+		jsr DrawAsteroid
+
+		; Make asteroid disappear.
+		jsr Delay
+		jsr Delay
+		jsr Delay
+		lda #$00
+		sta $4E
+		sta $7A
+		; Enable both screens.
+		lda #$00
+		sta TftCs1
+		sta $0001
+		sta TftCs2
+		sta $0001
+		jsr LoadAsteroid3Left
+		jsr DrawAsteroid
 		jsr LoadAsteroid3Right
 		jsr DrawAsteroid
 
@@ -1263,42 +1319,15 @@ NotL
 NotK
 
 EndKbInput
-		jsr DrawCrosshairs
 
-; Remove writing to character LCD for now.
-; 		; Store data in memory location read by LCD.
-; 		sta $7FBE
-; 		sta $7FBF
-;
-; 		; Make sure RS (bit 3) is set to 1.
-; 		lda #$0F
-; 		ora $7FBE
-;
-; 		; If CursorPosition >= 64, reset it to 0.
-; 		ldx CursorPosition
-; 		cpx #$40
-; 		bcc CursorPositionLessThan32
-; 		ldx #$00
-; 		stx CursorPosition
-; CursorPositionLessThan32
-;
-; 		ldx CursorPosition
-; 		sta $7FC0,x
-; 		inc CursorPosition
-;
-; 		; Move least sig. nibble to most sig. position, then make sure RS is 1.
-; 		rol $7FBF
-; 		rol $7FBF
-; 		rol $7FBF
-; 		rol $7FBF
-; 		lda #$0F
-; 		ora $7FBF
-;
-; 		ldx CursorPosition
-; 		sta $7FC0,x
-; 		inc CursorPosition
-;
-; 		jsr WriteLCD
+		; Enable both screens.
+		lda #$00
+		sta TftCs1
+		sta $0001
+		sta TftCs2
+		sta $0001
+
+		jsr DrawCrosshairs
 
 SkipScanCodeAndResetSkip
 		; Do not skip the next scan code.
@@ -2062,7 +2091,7 @@ DrawAsteroid
 		jsr WriteCommandLcd
 
 		lda #$00
-		ldx #$18
+		ldx #$1A
 AsteroidLoop0
 		sta SpiSrLd
     sta $0001
