@@ -6,7 +6,7 @@
 
 Vectron VR is a virtual reality peripheral for the [Vectron 64](https://github.com/nickbild/vectron_64) 6502 CPU-based breadboard computer.  It delivers independent 320x240 pixel images to each eye, thereby producing a stereoscopic 3D visual effect.
 
-To demonstrate the abilities of the system, the 3D game [Asteroids VR](https://github.com/nickbild/vectron_vr/blob/master/asteroids_vr.asm) has been developed.
+To demonstrate the abilities of the system, the 3D game [Asteroids VR](https://github.com/nickbild/vectron_vr#asteroids-vr) has been developed.
 
 ![Vectron VR angle](https://raw.githubusercontent.com/nickbild/vectron_vr/master/img/20190611_205845_sm.jpg)
 
