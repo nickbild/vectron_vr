@@ -70,6 +70,8 @@ I've removed the screens from the headset case to allow for better images (the l
 
 ![Asteroids VR Screen 2](https://raw.githubusercontent.com/nickbild/vectron_vr/master/img/20190612_200843_sm.jpg)
 
+A short video of gameplay is available on YouTube:
+
 [YouTube Video](https://www.youtube.com/watch?v=pnfFcg1cZ8U)
 
 
