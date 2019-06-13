@@ -42,7 +42,7 @@ An identical background image is drawn for both eyes.  Any element that should b
 
 ## Asteroids VR
 
-[Asteroids VR](https://github.com/nickbild/vectron_vr/blob/master/asteroids_vr.asm) is a 3D first person reimagining of the classic [Asteroids](https://en.wikipedia.org/wiki/Asteroids_(video_game)) game, written in 6502 assembly.  You sit in the cockpit of your spaceship (with 3D controls), looking out at a field of stars, while you blast away at asteroids that appear to be coming towards you.
+[Asteroids VR](https://github.com/nickbild/vectron_vr/blob/master/asteroids_vr.asm) is a 3D first person reimagining of the classic [Asteroids](https://en.wikipedia.org/wiki/Asteroids_(video_game)) game, written in 6502 assembly.  You sit in the cockpit of your spaceship (with 3D controls), looking out at the black void of space, while you blast away at asteroids that appear to be coming towards you.
 
 ### Controls
 
