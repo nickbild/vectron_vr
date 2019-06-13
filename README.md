@@ -12,7 +12,13 @@ To demonstrate the abilities of the system, the 3D game [Asteroids VR](https://g
 
 ![Vectron VR top](https://raw.githubusercontent.com/nickbild/vectron_vr/master/img/20190611_205627_sm.jpg)
 
+A look through a lens in the headset:
+
 ![Vectron VR lens](https://raw.githubusercontent.com/nickbild/vectron_vr/master/img/20190611_205725_sm.jpg)
+
+The back of the headset, with the door open:
+
+![Vectron VR headset](https://raw.githubusercontent.com/nickbild/vectron_vr/master/img/20190612_200436_sm.jpg)
 
 ## Circuit Diagram
 
@@ -53,6 +59,19 @@ An identical background image is drawn for both eyes.  Any element that should b
 | Q | Nose Down |
 | Z | Nose Up |
 | L | Fire Laser Cannon |
+
+### Media
+
+One of the drawbacks of a VR system is that without physically using the hardware, it's very hard to demonstrate.  With that caveat, I've done my best to capture some images and video of the game to give an idea of what it's like.  Unfortunately, this is a fairly poor representation of what it is like to wear the headset, so you'll need to use a bit of imagination (or build your own Vectron VR -- circuit diagrams available!).
+
+I've removed the screens from the headset case to allow for better images (the lenses will distort photographs).
+
+![Asteroids VR Screen 1](https://raw.githubusercontent.com/nickbild/vectron_vr/master/img/20190612_201027_sm.jpg)
+
+![Asteroids VR Screen 2](https://raw.githubusercontent.com/nickbild/vectron_vr/master/img/20190612_200843_sm.jpg)
+
+[YouTube Video](https://www.youtube.com/watch?v=pnfFcg1cZ8U)
+
 
 ## About the Author
 
