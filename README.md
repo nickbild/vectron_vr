@@ -28,6 +28,8 @@ The Fritzing diagram is [here](https://raw.githubusercontent.com/nickbild/vectro
 
 Diagrams for the Vectron 64 can be found on the [github page](https://github.com/nickbild/vectron_64/).
 
+[Bill of Materials](https://raw.githubusercontent.com/nickbild/vectron_vr/master/diagrams/vectron_vr_bom.html).
+
 ## Hardware Optimizations
 
 ### Co-processing
