@@ -22,7 +22,11 @@ The back of the headset, with the door open:
 
 ## Circuit Diagram
 
-Coming soon.
+The Fritzing diagram is [here](https://raw.githubusercontent.com/nickbild/vectron_vr/master/diagrams/vectron_vr.fzz).
+
+![Diagram](https://raw.githubusercontent.com/nickbild/vectron_vr/master/diagrams/vectron_vr_bb.png)
+
+Diagrams for the Vectron 64 can be found on the [github page](https://github.com/nickbild/vectron_64/).
 
 ## Hardware Optimizations
 
